@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "nodenext",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "strict": true
+    },
+    "exclude": ["drizzle.config.ts", "vitest.config.ts"]
+}
