@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { ZodType } from "zod";
+import { util, ZodType } from "zod";
 import utils from "../../shared/util";
+import authUtils from "./auth.utils";
 
 const authMiddleware = {
     validateRequest: (schema: ZodType) => {
         return (req: Request, res: Response, next: NextFunction) => {
             const result = schema.safeParse(req.body);
 
-            if (result.error) {
+            if (!result.success) {
                 return utils.error(res, {
                     message: "validation failed",
                     error: result.error.issues,
@@ -16,6 +17,33 @@ const authMiddleware = {
 
             req.body = result.data;
             next();
+        };
+    },
+
+    requireAuth: () => {
+        return (req: Request, res: Response, next: NextFunction) => {
+            const authHeader = req.headers.authorization;
+
+            if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                return utils.error(res, { error: "No token provided" }, 401);
+            }
+
+            try {
+                const realToken = authHeader.split(" ")[1];
+                const tokenValue = authUtils.verifyToken(realToken) as {
+                    userId: number;
+                    userEmail: string;
+                    userRole: string;
+                };
+                req.user = {
+                    id: tokenValue.userId,
+                    email: tokenValue.userEmail,
+                    role: tokenValue.userRole,
+                };
+                next();
+            } catch (error) {
+                utils.error(res, { error: "Invalid or expired token" }, 401);
+            }
         };
     },
 };

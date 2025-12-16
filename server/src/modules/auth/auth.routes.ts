@@ -11,4 +11,12 @@ authRouter.post(
     authController.signup
 );
 
+authRouter.post(
+    "/login",
+    authMiddleware.validateRequest(schema.register),
+    authController.login
+);
+
+authRouter.get("/me", authMiddleware.requireAuth(), authController.me);
+
 export default authRouter;
