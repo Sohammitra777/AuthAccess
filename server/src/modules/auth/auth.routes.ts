@@ -18,5 +18,10 @@ authRouter.post(
 );
 
 authRouter.get("/me", authMiddleware.requireAuth(), authController.me);
+authRouter.get(
+    "/admin/data",
+    authMiddleware.requireAuth(),
+    authMiddleware.requireRole("admin")
+);
 
 export default authRouter;

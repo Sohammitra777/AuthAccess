@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { util, ZodType } from "zod";
 import utils from "../../shared/util";
 import authUtils from "./auth.utils";
+import { Role } from "./auth.type";
 
 const authMiddleware = {
     validateRequest: (schema: ZodType) => {
@@ -44,6 +45,24 @@ const authMiddleware = {
             } catch (error) {
                 utils.error(res, { error: "Invalid or expired token" }, 401);
             }
+        };
+    },
+
+    requireRole: (userRole: Role) => {
+        return (req: Request, res: Response, next: NextFunction) => {
+            const { role } = req.user;
+
+            if (!role)
+                return utils.error(res, { error: "Not authenticated" }, 401);
+
+            if (role !== userRole)
+                return utils.error(
+                    res,
+                    { error: "Forbidden: insufficient role" },
+                    403
+                );
+
+            next();
         };
     },
 };
