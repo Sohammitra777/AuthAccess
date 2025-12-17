@@ -15,6 +15,17 @@ const adminRepo = {
             .from(users);
     },
 
+    findById: async (id: number) => {
+        return await db
+            .select({
+                id: users.id,
+                email: users.email,
+                role: users.role,
+            })
+            .from(users)
+            .where(eq(users.id, id));
+    },
+
     findByEmail: async (email: string) => {
         return await db
             .select({
@@ -26,7 +37,7 @@ const adminRepo = {
             .where(eq(users.email, email));
     },
 
-    createUser: async (adminUser: User) => {
+    createUser: async (adminUser: Omit<User, "id">) => {
         const adminUserHash = await hash(adminUser.password);
         return await db
             .insert(users)
@@ -40,6 +51,28 @@ const adminRepo = {
                 email: users.email,
                 role: users.role,
             });
+    },
+
+    updateUser: async (id: number, adminUser: Pick<User, "email" | "role">) => {
+        return await db
+            .update(users)
+            .set({
+                email: adminUser.email,
+                role: adminUser.role,
+            })
+            .where(eq(users.id, id))
+            .returning({
+                id: users.id,
+                email: users.email,
+                role: users.role,
+            });
+    },
+
+    deleteUser: async (id: number) => {
+        return await db.delete(users).where(eq(users.id, id)).returning({
+            email: users.email,
+            role: users.role,
+        });
     },
 };
 

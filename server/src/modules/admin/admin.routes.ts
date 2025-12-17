@@ -1,23 +1,38 @@
 import { Router } from "express";
 import adminController from "./admin.controller";
-import authMiddleware from "../../shared/shared.middleware";
-import authSchema from "../../shared/shared.schema";
+import sharedSchema, { updateUserSchema } from "../../shared/shared.schema";
+import sharedMiddleware from "../../shared/shared.middleware";
 
 const adminRoutes = Router();
 
 adminRoutes.get(
     "/users",
-    authMiddleware.requireAuth(),
-    authMiddleware.requireRole("admin"),
+    sharedMiddleware.requireAuth(),
+    sharedMiddleware.requireRole("admin"),
     adminController.getUsers
 );
 
 adminRoutes.post(
     "/users",
-    authMiddleware.requireAuth(),
-    authMiddleware.requireRole("admin"),
-    authMiddleware.validateRequest(authSchema.register),
+    sharedMiddleware.requireAuth(),
+    sharedMiddleware.requireRole("admin"),
+    sharedMiddleware.validateRequest(sharedSchema.register),
     adminController.createUser
+);
+
+adminRoutes.put(
+    "/users/:id",
+    sharedMiddleware.requireAuth(),
+    sharedMiddleware.requireRole("admin"),
+    sharedMiddleware.validateRequest(updateUserSchema),
+    adminController.updateUser
+);
+
+adminRoutes.delete(
+    "/users/:id",
+    sharedMiddleware.requireAuth(),
+    sharedMiddleware.requireRole("admin"),
+    adminController.deleteUser
 );
 
 export default adminRoutes;
