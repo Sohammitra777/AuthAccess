@@ -1,6 +1,6 @@
 import { Router } from "express";
-import authMiddleware from "./auth.middleware";
-import schema from "./auth.schema";
+import authMiddleware from "../../shared/shared.middleware";
+import schema from "../../shared/shared.schema";
 import authController from "./auth.controller";
 
 const authRouter = Router();
@@ -18,10 +18,5 @@ authRouter.post(
 );
 
 authRouter.get("/me", authMiddleware.requireAuth(), authController.me);
-authRouter.get(
-    "/admin/data",
-    authMiddleware.requireAuth(),
-    authMiddleware.requireRole("admin")
-);
 
 export default authRouter;

@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { util, ZodType } from "zod";
-import utils from "../../shared/util";
-import authUtils from "./auth.utils";
-import { Role } from "./auth.type";
+import { ZodType } from "zod";
+import utils from "./shared.util";
+import authUtils from "../modules/auth/auth.utils";
+import { Role } from "../modules/auth/auth.type";
 
-const authMiddleware = {
+const sharedMiddleware = {
     validateRequest: (schema: ZodType) => {
         return (req: Request, res: Response, next: NextFunction) => {
             const result = schema.safeParse(req.body);
@@ -67,4 +67,4 @@ const authMiddleware = {
     },
 };
 
-export default authMiddleware;
+export default sharedMiddleware;

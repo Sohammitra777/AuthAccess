@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1765909644018" clover="3.2.0">
-  <project timestamp="1765909644018" name="All files">
-    <metrics statements="44" coveredstatements="44" conditionals="18" coveredconditionals="18" methods="9" coveredmethods="9" elements="71" coveredelements="71" complexity="0" loc="44" ncloc="44" packages="1" files="2" classes="2"/>
-    <file name="auth.middleware.ts" path="D:\express-ts-lab\p_2_frontend_intigration\server\src\modules\auth\auth.middleware.ts">
+<coverage generated="1765965346551" clover="3.2.0">
+  <project timestamp="1765965346551" name="All files">
+    <metrics statements="24" coveredstatements="24" conditionals="10" coveredconditionals="10" methods="6" coveredmethods="6" elements="40" coveredelements="40" complexity="0" loc="24" ncloc="24" packages="1" files="1" classes="1"/>
+    <file name="shared.middleware.ts" path="D:\express-ts-lab\p_2_frontend_intigration\server\src\shared\shared.middleware.ts">
       <metrics statements="24" coveredstatements="24" conditionals="10" coveredconditionals="10" methods="6" coveredmethods="6"/>
       <line num="7" count="1" type="stmt"/>
       <line num="9" count="2" type="stmt"/>
@@ -28,29 +28,6 @@
       <line num="58" count="2" type="cond" truecount="2" falsecount="0"/>
       <line num="59" count="2" type="stmt"/>
       <line num="65" count="1" type="stmt"/>
-    </file>
-    <file name="auth.services.ts" path="D:\express-ts-lab\p_2_frontend_intigration\server\src\modules\auth\auth.services.ts">
-      <metrics statements="20" coveredstatements="20" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
-      <line num="5" count="1" type="stmt"/>
-      <line num="7" count="2" type="stmt"/>
-      <line num="9" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="10" count="1" type="stmt"/>
-      <line num="16" count="1" type="stmt"/>
-      <line num="21" count="1" type="stmt"/>
-      <line num="30" count="3" type="stmt"/>
-      <line num="31" count="3" type="stmt"/>
-      <line num="33" count="3" type="cond" truecount="2" falsecount="0"/>
-      <line num="34" count="1" type="stmt"/>
-      <line num="41" count="2" type="stmt"/>
-      <line num="46" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="47" count="2" type="stmt"/>
-      <line num="53" count="1" type="stmt"/>
-      <line num="54" count="1" type="stmt"/>
-      <line num="68" count="2" type="stmt"/>
-      <line num="69" count="2" type="stmt"/>
-      <line num="71" count="2" type="cond" truecount="2" falsecount="0"/>
-      <line num="72" count="1" type="stmt"/>
-      <line num="78" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>

@@ -1,21 +1,21 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import utils from "../../../shared/util";
+import utils from "../shared.util";
 
-vi.mock("../../../shared/util", () => ({
+vi.mock("../shared.util", () => ({
     default: {
         success: vi.fn(),
         error: vi.fn(),
     },
 }));
 
-vi.mock("../auth.utils", () => ({
+vi.mock("../../modules/auth/auth.utils", () => ({
     default: {
         verifyToken: vi.fn(),
     },
 }));
 
-import authMiddleware from "../auth.middleware";
-import authUtils from "../auth.utils";
+import authMiddleware from "../shared.middleware";
+import authUtils from "../../modules/auth/auth.utils";
 describe("testing authMiddleware.validateRequest", () => {
     test("return error if validation fails", () => {
         const mockSchema: any = {
