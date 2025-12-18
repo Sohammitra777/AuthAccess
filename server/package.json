@@ -1,38 +1,40 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "vitest --coverage",
-    "dev": "tsx watch src/server",
-    "generate": "drizzle-kit generate",
-    "push": "drizzle-kit push"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.21.0",
-  "dependencies": {
-    "argon2": "^0.44.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "drizzle-orm": "^0.45.1",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "pg": "^8.16.3",
-    "zod": "^4.2.0"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.0.2",
-    "@types/pg": "^8.16.0",
-    "@types/supertest": "^6.0.3",
-    "@vitest/coverage-v8": "^4.0.15",
-    "drizzle-kit": "^0.31.8",
-    "supertest": "^7.1.4",
-    "vitest": "^4.0.15"
-  }
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "vitest --coverage",
+        "dev": "nodemon",
+        "generate": "drizzle-kit generate",
+        "push": "drizzle-kit push"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.21.0",
+    "dependencies": {
+        "argon2": "^0.44.0",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "drizzle-orm": "^0.45.1",
+        "express": "^5.2.1",
+        "jsonwebtoken": "^9.0.3",
+        "pg": "^8.16.3",
+        "zod": "^4.2.0"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/node": "^25.0.2",
+        "@types/pg": "^8.16.0",
+        "@types/supertest": "^6.0.3",
+        "@vitest/coverage-v8": "^4.0.15",
+        "drizzle-kit": "^0.31.8",
+        "nodemon": "^3.1.11",
+        "supertest": "^7.1.4",
+        "tsx": "^4.21.0",
+        "vitest": "^4.0.15"
+    }
 }

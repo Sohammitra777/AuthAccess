@@ -15,4 +15,10 @@ app.get("/", (req: Request, res: Response) => {
     res.json({ message: "Server running" });
 });
 
+app.post("/", (req: Request, res: Response) => {
+    const { name, age } = req.body;
+    console.log(name, age);
+    res.json({ name, age });
+});
+
 export default app;
