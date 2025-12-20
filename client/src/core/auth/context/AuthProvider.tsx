@@ -1,23 +1,24 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type { User } from "../domain/auth.types";
-import contextUtils from "../domain/auth.util";
 import AuthContext from "./AuthContext";
+import authUtils from "../domain/auth.util";
+import authServices from "../../../services/auth.services";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     const login = useCallback((token: string) => {
-        const user = contextUtils.initializeToken(token);
+        const user = authUtils.initializeToken(token);
         if (!user) {
-            contextUtils.removeToken();
+            authUtils.removeToken();
             throw new Error("Invalid token");
         }
         setUser(user);
     }, []);
 
     const logout = useCallback(() => {
-        contextUtils.removeToken();
+        authUtils.removeToken();
         setUser(null);
     }, []);
 
@@ -27,15 +28,26 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 
     useEffect(() => {
-        const user: User | null = contextUtils.decodedUserFromToken();
+        const bootstrapAuth = async () => {
+            const token = authUtils.getToken();
 
-        if (user) {
-            setUser(user);
-        } else {
-            contextUtils.removeToken();
-        }
+            if (!token) {
+                setLoading(false);
+                return;
+            }
 
-        setLoading(false);
+            try {
+                const user = await authServices.getMe();
+                setUser(user);
+            } catch {
+                authUtils.removeToken();
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        bootstrapAuth();
     }, []);
 
     return (

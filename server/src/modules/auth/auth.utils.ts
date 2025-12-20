@@ -16,7 +16,7 @@ const authUtils = {
 
     signinToken: (userId: number, userEmail: string, userRole: string) => {
         return jwt.sign({userId, userEmail, userRole }, jwt_secret, {
-            expiresIn: "1h",
+            expiresIn: "15m",
         });
     },
 

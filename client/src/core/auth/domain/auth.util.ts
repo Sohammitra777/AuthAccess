@@ -4,18 +4,20 @@ import type { JwtPayload, User } from "./auth.types";
 const decodedUserFromToken = (): User | null => {
     try {
         const token = localStorage.getItem("token");
-        if (!token) throw new Error("Token does not exist");
+        if (!token) return null;
+
         const payload = jwtDecode<JwtPayload>(token);
 
-        if (payload.exp * 1000 < Date.now()) {
-            throw new Error("Token expired");
+        if (!payload.exp || payload.exp * 1000 < Date.now()) {
+            return null;
         }
+
         return {
             id: payload.userId,
             email: payload.userEmail,
             role: payload.userRole,
         };
-    } catch (error) {
+    } catch {
         return null;
     }
 };

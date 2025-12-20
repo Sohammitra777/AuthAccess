@@ -1,22 +1,28 @@
 import z from "zod";
 
-export const emailSchema = z.email();
-export const passwordSchema = z.string().min(6).max(32);
-export const role = z.enum(["user", "admin"]).default("user");
-export const registerSchema = z.object({
+const emailSchema = z.email();
+const passwordSchema = z.string().min(6).max(32);
+const role = z.enum(["user", "admin"]).default("user");
+const signupSchema = z.object({
     email: emailSchema,
     password: passwordSchema,
     role: role,
 });
 
-export const updateUserSchema = registerSchema
+const loginSchema = z.object({
+    email: emailSchema,
+    password: passwordSchema,
+});
+
+const updateUserSchema = signupSchema
     .pick({ email: true, role: true })
     .partial();
 
 const sharedSchema = {
     email: emailSchema,
     password: passwordSchema,
-    register: registerSchema,
+    signup: signupSchema,
+    login: loginSchema,
     updateUser: updateUserSchema,
 };
 

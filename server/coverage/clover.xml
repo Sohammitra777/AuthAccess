@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1766130386650" clover="3.2.0">
-  <project timestamp="1766130386651" name="All files">
+<coverage generated="1766238871702" clover="3.2.0">
+  <project timestamp="1766238871703" name="All files">
     <metrics statements="61" coveredstatements="61" conditionals="24" coveredconditionals="24" methods="13" coveredmethods="13" elements="98" coveredelements="98" complexity="0" loc="61" ncloc="61" packages="3" files="3" classes="3"/>
     <package name="modules.admin">
       <metrics statements="17" coveredstatements="17" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
@@ -18,11 +18,11 @@
         <line num="36" count="1" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="58" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="57" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
       </file>
     </package>
     <package name="modules.auth">

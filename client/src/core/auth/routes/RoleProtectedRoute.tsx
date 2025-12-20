@@ -12,7 +12,7 @@ function RoleProtectedRoute({ role }: { role: string }) {
         return <Navigate to="/login" replace />;
     }
 
-    if (user.role != role) {
+    if (user.role !== role) {
         return <Navigate to="/dashboard" replace />;
     }
 

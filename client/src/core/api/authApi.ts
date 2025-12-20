@@ -17,7 +17,8 @@ authApi.interceptors.request.use((config) => {
 
 authApi.interceptors.response.use(
     (response) => {
-        const { success, user } = response.data;
+        const data = response.data ?? {}; 
+        const { success, user } = data;
 
         if (!success) {
             return Promise.reject(response.data);
@@ -26,16 +27,24 @@ authApi.interceptors.response.use(
         if (!user) {
             return Promise.reject({
                 success: false,
-                message: "Auth API contract voilated: user missing",
+                message: "Auth API contract violated: user missing",
             });
         }
 
         return user;
     },
     (error) => {
-        if (error.response.data) {
+        if (error.response?.status === 401) {
+            authUtils.removeToken();
+
+            window.location.href = "/login";
+            return;
+        }
+
+        if (error.response?.data) {
             return Promise.reject(error.response.data);
         }
+
         return Promise.reject({
             success: false,
             message: "Network error",
