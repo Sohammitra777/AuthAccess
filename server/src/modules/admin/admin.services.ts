@@ -1,5 +1,5 @@
 import adminRepo from "./admin.repo";
-import { User } from "./admin.type";
+import { User } from "./admin.types";
 
 const adminServices = {
     getUsers: async () => {
@@ -53,7 +53,6 @@ const adminServices = {
     },
 
     deleteUser: async (id: number) => {
-        
         const findUserById = await adminRepo.findById(id);
         if (findUserById.length === 0)
             return {

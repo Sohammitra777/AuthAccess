@@ -24,7 +24,11 @@ const authController = {
         if (!result.success)
             return utils.error(res, { message: result.message }, result.status);
 
-        utils.success(res, { user: result.data }, result.status);
+        utils.success(
+            res,
+            { message: result.message, user: result.data },
+            result.status
+        );
     },
 
     me: async (req: Request, res: Response) => {

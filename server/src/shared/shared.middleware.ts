@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ZodType } from "zod";
 import utils from "./shared.util";
 import authUtils from "../modules/auth/auth.utils";
-import { Role } from "../modules/auth/auth.type";
+import { Role } from "../modules/auth/auth.types";
 
 const sharedMiddleware = {
     validateRequest: (schema: ZodType) => {

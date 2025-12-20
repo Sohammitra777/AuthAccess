@@ -1,7 +1,7 @@
 import { hash } from "argon2";
 import db from "../../drizzle/db";
 import { users } from "../../drizzle/schema/schema";
-import { User } from "./admin.type";
+import { User } from "./admin.types";
 import { eq } from "drizzle-orm";
 
 const adminRepo = {
