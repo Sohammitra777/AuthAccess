@@ -50,7 +50,6 @@ const authServices = {
                 message: "Invalid Password",
             };
 
-        const userToken = authUtils.createAccessToken(user.id, user.email, user.role);
         return {
             success: true,
             status: 200,
@@ -59,7 +58,6 @@ const authServices = {
                 id: user.id,
                 email: user.email,
                 role: user.role,
-                token: userToken,
             },
         };
     },
@@ -84,6 +82,14 @@ const authServices = {
                 role: user.role,
             },
         };
+    },
+
+    createAccessTokenFromController: (user: {
+        id: number;
+        email: string;
+        role: string;
+    }) => {
+        return authUtils.createAccessToken(user.id, user.email, user.role);
     },
 };
 

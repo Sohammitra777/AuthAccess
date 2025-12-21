@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import authServices from "./auth.services";
 import utils from "../../shared/shared.util";
+import env from "../../config/env";
 
 const authController = {
     signup: async (req: Request, res: Response) => {
@@ -24,6 +25,21 @@ const authController = {
         if (!result.success)
             return utils.error(res, { message: result.message }, result.status);
 
+        const user = result.data;
+
+        if (!user) return utils.error(res, { message: "Login failed" }, 500);
+
+        const token = authServices.createAccessTokenFromController(
+            result.data!
+        );
+
+        res.cookie("accessToken", token, {
+            httpOnly: true,
+            secure: env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
+            maxAge: 1000 * 60 * 15,
+        });
         utils.success(
             res,
             { message: result.message, user: result.data },
@@ -43,6 +59,14 @@ const authController = {
             { message: result.message, user: result.data },
             result.status
         );
+    },
+
+    logout: async (req: Request, res: Response) => {
+        res.clearCookie("accessToken", {
+            path: "/",
+        });
+
+        return res.sendStatus(204);
     },
 };
 

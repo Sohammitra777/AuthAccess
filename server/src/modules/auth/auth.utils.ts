@@ -12,7 +12,11 @@ const authUtils = {
         return await argon2.verify(userPassword, incommingPassword);
     },
 
-    createAccessToken: (userId: number, userEmail: string, userRole: string) => {
+    createAccessToken: (
+        userId: number,
+        userEmail: string,
+        userRole: string
+    ) => {
         return jwt.sign(
             { userId, userEmail, userRole },
             env.JWT_ACCESS_SECRET,

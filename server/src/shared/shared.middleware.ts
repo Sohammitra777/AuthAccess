@@ -23,27 +23,32 @@ const sharedMiddleware = {
 
     requireAuth: () => {
         return (req: Request, res: Response, next: NextFunction) => {
-            const authHeader = req.headers.authorization;
+            const token = req.cookies.accessToken;
 
-            if (!authHeader || !authHeader.startsWith("Bearer ")) {
-                return utils.error(res, { error: "No token provided" }, 401);
+            if (!token) {
+                return utils.error(res, { error: "Not authenticated" }, 401);
             }
 
             try {
-                const realToken = authHeader.split(" ")[1];
-                const tokenValue = authUtils.verifyToken(realToken) as {
+                const tokenValue = authUtils.verifyAccessToken(token) as {
                     userId: number;
                     userEmail: string;
                     userRole: string;
                 };
+
                 req.user = {
                     id: tokenValue.userId,
                     email: tokenValue.userEmail,
                     role: tokenValue.userRole,
                 };
+
                 next();
             } catch (error) {
-                utils.error(res, { error: "Invalid or expired token" }, 401);
+                return utils.error(
+                    res,
+                    { error: "Invalid or expired token" },
+                    401
+                );
             }
         };
     },

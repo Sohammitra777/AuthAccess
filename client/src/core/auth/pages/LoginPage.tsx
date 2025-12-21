@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import authServices from "../../../services/auth.services";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../context/useAuth";
 
@@ -13,8 +12,7 @@ function LoginPage() {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            const result = await authServices.login(userEmail, userPassword);
-            login(result.token);
+            await login(userEmail, userPassword);
             navigate("/dashboard");
         } catch (err) {
             setError("Invalid credentials");
@@ -38,7 +36,6 @@ function LoginPage() {
                 />
                 <button type="submit">Login</button>
                 {error !== "" && <p>Error</p>}
-
             </form>
         </div>
     );

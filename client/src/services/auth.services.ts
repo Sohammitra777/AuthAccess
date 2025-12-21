@@ -6,9 +6,12 @@ type User = {
     role: string;
 };
 
-type LoginResponse = {
-    token: string;
-};
+
+export interface MeApiResponse {
+    success: boolean;
+    user?: User;
+    message?: string;
+}
 
 type SignupResponse = User;
 type MeResponse = User;
@@ -24,7 +27,7 @@ const authServices = {
         });
     },
 
-    login: async (email: string, password: string): Promise<LoginResponse> => {
+    login: async (email: string, password: string): Promise<User> => {
         return await authApi.post("/login", {
             email,
             password,
@@ -32,7 +35,17 @@ const authServices = {
     },
 
     getMe: async (): Promise<MeResponse> => {
-        return await authApi.get("/me");
+        const res = await authApi.get<MeApiResponse>("/me");
+
+        if (!res.data.success || !res.data.user) {
+            throw res;
+        }
+
+        return res.data.user;
+    },
+
+    logout: async () => {
+        return await authApi.post("/logout");
     },
 };
 
