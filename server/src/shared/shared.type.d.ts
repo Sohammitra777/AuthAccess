@@ -8,6 +8,8 @@ declare global {
                 email: string;
                 role: string;
             };
+
+            refreshToken: string;
         }
     }
 }

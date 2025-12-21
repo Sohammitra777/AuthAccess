@@ -1,10 +1,7 @@
 import axios from "axios";
 import axiosConfig from "./axios";
 
-export const authApi = axios.create({
-    ...axiosConfig.extendedClientConfig("/auth"),
-    withCredentials: true,
-});
+export const authApi = axios.create(axiosConfig.extendedClientConfig("/auth"));
 
 authApi.interceptors.response.use(
     (response) => response,

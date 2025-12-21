@@ -7,8 +7,6 @@ export const users = pgTable("users", {
     role: text("role").notNull().default("user"),
 });
 
-//if id is integer userid should also be integer postgres doesnot allow fk dependency to be different
-// uuids are better than serial id
 export const refreshToken = pgTable("refrest_token", {
     id: uuid("id").defaultRandom().primaryKey(),
     userId: integer("user_id")

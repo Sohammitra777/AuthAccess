@@ -6,7 +6,6 @@ type User = {
     role: string;
 };
 
-
 export interface MeApiResponse {
     success: boolean;
     user?: User;
