@@ -1,6 +1,6 @@
 import { Router } from "express";
 import adminController from "./admin.controller";
-import sharedSchema, { updateUserSchema } from "../../shared/shared.schema";
+import sharedSchema from "../../shared/shared.schema";
 import sharedMiddleware from "../../shared/shared.middleware";
 
 const adminRoutes = Router();
@@ -16,7 +16,7 @@ adminRoutes.post(
     "/users",
     sharedMiddleware.requireAuth(),
     sharedMiddleware.requireRole("admin"),
-    sharedMiddleware.validateRequest(sharedSchema.register),
+    sharedMiddleware.validateBody(sharedSchema.signup),
     adminController.createUser
 );
 
@@ -24,7 +24,7 @@ adminRoutes.put(
     "/users/:id",
     sharedMiddleware.requireAuth(),
     sharedMiddleware.requireRole("admin"),
-    sharedMiddleware.validateRequest(updateUserSchema),
+    sharedMiddleware.validateBody(sharedSchema.updateUser),
     adminController.updateUser
 );
 

@@ -50,7 +50,7 @@ const authServices = {
                 message: "Invalid Password",
             };
 
-        const userToken = authUtils.signinToken(user.id, user.email, user.role);
+        const userToken = authUtils.createAccessToken(user.id, user.email, user.role);
         return {
             success: true,
             status: 200,

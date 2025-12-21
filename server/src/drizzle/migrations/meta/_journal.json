@@ -8,6 +8,13 @@
       "when": 1765822340045,
       "tag": "0000_cute_amphibian",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1766255050874,
+      "tag": "0001_lonely_synch",
+      "breakpoints": true
     }
   ]
 }

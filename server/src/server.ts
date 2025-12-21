@@ -1,6 +1,7 @@
 import "dotenv/config";
 import app from "./app";
-const PORT = process.env.PORT || 3000;
+import env from "./config/env";
+const PORT = env.PORT || 3000;
 
 process.on("SIGTERM", () => {
   console.log("🛑 Shutting down...");

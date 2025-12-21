@@ -7,13 +7,13 @@ const authRouter = Router();
 
 authRouter.post(
     "/signup",
-    sharedMiddleware.validateRequest(sharedSchema.signup),
+    sharedMiddleware.validateBody(sharedSchema.signup),
     authController.signup
 );
 
 authRouter.post(
     "/login",
-    sharedMiddleware.validateRequest(sharedSchema.login),
+    sharedMiddleware.validateBody(sharedSchema.login),
     authController.login
 );
 
