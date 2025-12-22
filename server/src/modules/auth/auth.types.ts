@@ -16,3 +16,17 @@ export type Refresh = {
     accessToken: string;
     newRefreshToken: string;
 };
+
+
+export type AuthFailureResponse = {
+    error: string;
+};
+
+export type AuthSuccessResponse = {
+    message: string;
+    user: {
+        id: number;
+        email: string;
+        role: string;
+    };
+};

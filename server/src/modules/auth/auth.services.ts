@@ -100,6 +100,7 @@ const authServices = {
         return {
             success: true,
             status: 200,
+            message: "user validated",
             data: {
                 id: user.id,
                 email: user.email,
@@ -171,6 +172,7 @@ const authServices = {
         return {
             success: true,
             status: 200,
+            message: "user refreshed",
             data: {
                 accessToken,
                 newRefreshToken,

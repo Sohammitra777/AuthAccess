@@ -17,7 +17,7 @@ declare global {
 type ServiceResponseSuccess<RS> = {
     success: true;
     status: number;
-    message?: string;
+    message: string;
     data: RS;
 };
 

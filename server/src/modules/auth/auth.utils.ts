@@ -4,17 +4,6 @@ import env from "../../config/env";
 import { StringValue } from "ms";
 import crypto from "crypto";
 
-const createRefreshToken = () => {
-    const bytes = new Uint8Array(64);
-    crypto.getRandomValues(bytes);
-
-    return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
-};
-
-const hashRefreshToken = async (token: string) => {
-    return await argon2.hash(token);
-};
-
 const authUtils = {
     hashPassword: async (password: string) => {
         return await argon2.hash(password);
@@ -50,7 +39,10 @@ const authUtils = {
     },
 
     hashRefreshToken: (token: string) => {
-        return crypto.createHmac("sha256", env.JWT_REFREST_SECRET).update(token).digest("hex"); 
+        return crypto
+            .createHmac("sha256", env.JWT_REFREST_SECRET)
+            .update(token)
+            .digest("hex");
     },
     refreshTokenExpiry: () => {
         const expiresAt = new Date();

@@ -1,10 +1,18 @@
 import { Response } from "express";
 import env from "../config/env";
 
+
 const utils = {
-    success: (res: Response, payload: object, status: number = 200) => {
+    success: <T>(res: Response, payload: NoInfer<T>, status: number = 200) => {
         res.status(status).json({
             success: true,
+            ...payload,
+        });
+    },
+
+    error: <T>(res: Response, payload: NoInfer<T>, status: number = 400) => {
+        return res.status(status).json({
+            success: false,
             ...payload,
         });
     },
@@ -33,13 +41,6 @@ const utils = {
             secure: env.NODE_ENV === "production",
             sameSite: env.NODE_ENV === "production" ? "none" : "lax",
             path: "/",
-        });
-    },
-
-    error: (res: Response, payload: object, status: number = 400) => {
-        return res.status(status).json({
-            success: false,
-            ...payload,
         });
     },
 };

@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import authServices from "./auth.services";
-import utils from "../../shared/shared.util";
 import env from "../../config/env";
+import authResponse from "./auth.responses";
+import utils from "../../shared/shared.util";
 
 const authController = {
     signup: async (req: Request, res: Response) => {
@@ -9,9 +10,13 @@ const authController = {
 
         const result = await authServices.signup(email, password);
         if (!result.success)
-            return utils.error(res, { message: result.message }, result.status);
+            return authResponse.error(
+                res,
+                { error: result.message },
+                result.status
+            );
 
-        utils.success(
+        authResponse.success(
             res,
             { message: result.message, user: result.data },
             result.status
@@ -23,10 +28,15 @@ const authController = {
         const result = await authServices.login(email, password);
 
         if (!result.success)
-            return utils.error(res, { message: result.message }, result.status);
+            return authResponse.error(
+                res,
+                { error: result.message },
+                result.status
+            );
 
         const user = result.data;
-        if (!user) return utils.error(res, { message: "Login failed" }, 500);
+        if (!user)
+            return authResponse.error(res, { error: "Login failed" }, 500);
 
         const { id, role, token } = user;
         const refreshToken = token.refreshToken;
@@ -42,7 +52,7 @@ const authController = {
             refreshToken,
             env.REFRESH_TOKEN_AGE
         );
-        utils.success(
+        authResponse.success(
             res,
             { message: result.message, user: { id, email: user.email, role } },
             result.status
@@ -54,9 +64,13 @@ const authController = {
 
         const result = await authServices.me(email);
         if (!result.success)
-            return utils.error(res, { error: result.message }, result.status);
+            return authResponse.error(
+                res,
+                { error: result.message },
+                result.status
+            );
 
-        utils.success(
+        authResponse.success(
             res,
             { message: result.message, user: result.data },
             result.status
@@ -81,7 +95,11 @@ const authController = {
         const result = await authServices.refresh(refreshToken);
 
         if (!result.success)
-            return utils.error(res, { message: result.message }, result.status);
+            return authResponse.error(
+                res,
+                { error: result.message },
+                result.status
+            );
 
         const { accessToken, newRefreshToken } = result.data;
         utils.attachCookie(
