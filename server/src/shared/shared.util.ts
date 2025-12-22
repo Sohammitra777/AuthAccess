@@ -20,7 +20,19 @@ const utils = {
             secure: env.NODE_ENV === "production",
             sameSite: env.NODE_ENV === "production" ? "none" : "lax",
             path: "/",
-            maxAge: age,
+            maxAge: Number(age),
+        });
+    },
+
+    removeCookie: (
+        res: Response,
+        tokenName: "accessToken" | "refreshToken"
+    ) => {
+        res.clearCookie(tokenName, {
+            httpOnly: true,
+            secure: env.NODE_ENV === "production",
+            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            path: "/",
         });
     },
 

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import authServices from "./auth.services";
 import utils from "../../shared/shared.util";
+import env from "../../config/env";
 
 const authController = {
     signup: async (req: Request, res: Response) => {
@@ -27,21 +28,23 @@ const authController = {
         const user = result.data;
         if (!user) return utils.error(res, { message: "Login failed" }, 500);
 
-        const accessToken = authServices.createAccessTokenFromController(user);
-        const refreshToken = await authServices.createAndStoreRefreshToken(
-            user.id
+        const { id, role, token } = user;
+        const refreshToken = token.refreshToken;
+        utils.attachCookie(
+            res,
+            "accessToken",
+            token.accessToken,
+            env.ACCESS_TOKEN_AGE
         );
-
-        utils.attachCookie(res, "accessToken", accessToken, 1000 * 60 * 15);
         utils.attachCookie(
             res,
             "refreshToken",
             refreshToken,
-            1000 * 60 * 60 * 24 * 7
+            env.REFRESH_TOKEN_AGE
         );
         utils.success(
             res,
-            { message: result.message, user: result.data },
+            { message: result.message, user: { id, email: user.email, role } },
             result.status
         );
     },
@@ -61,14 +64,14 @@ const authController = {
     },
 
     logout: async (req: Request, res: Response) => {
-        res.clearCookie("accessToken", {
-            path: "/",
-        });
+        const refreshToken = req.cookies.refreshToken;
 
-        res.clearCookie("refreshToken", {
-            path: "/",
-        });
+        if (refreshToken) {
+            await authServices.logout(refreshToken);
+        }
 
+        utils.removeCookie(res, "accessToken");
+        utils.removeCookie(res, "refreshToken");
         return res.sendStatus(204);
     },
 
@@ -80,10 +83,19 @@ const authController = {
         if (!result.success)
             return utils.error(res, { message: result.message }, result.status);
 
-        const { accessToken, newRefreshToken, accessAge, refreshAge } =
-            result.data;
-        utils.attachCookie(res, "accessToken", accessToken, accessAge);
-        utils.attachCookie(res, "refreshToken", newRefreshToken, refreshAge);
+        const { accessToken, newRefreshToken } = result.data;
+        utils.attachCookie(
+            res,
+            "accessToken",
+            accessToken,
+            env.ACCESS_TOKEN_AGE
+        );
+        utils.attachCookie(
+            res,
+            "refreshToken",
+            newRefreshToken,
+            env.REFRESH_TOKEN_AGE
+        );
         return res.sendStatus(204);
     },
 };

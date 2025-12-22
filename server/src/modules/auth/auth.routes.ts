@@ -20,7 +20,10 @@ authRouter.post(
 
 authRouter.get("/me", sharedMiddleware.requireAuth(), authController.me);
 
-authRouter.post("/logout", authController.logout);
+authRouter.post(
+    "/logout",
+    authController.logout
+);
 
 authRouter.post(
     "/refresh",

@@ -2,20 +2,17 @@
 
 export type Role = "user" | "admin";
 
-type RefreshSuccess = {
-    success: true;
-    data: {
+export type Data = {
+    id: number;
+    email: string;
+    role: string;
+    token: {
         accessToken: string;
-        newRefreshToken: string;
-        accessAge: number;
-        refreshAge: number;
+        refreshToken: string;
     };
 };
 
-type RefreshFailure = {
-    success: false;
-    status: number;
-    message: string;
+export type Refresh = {
+    accessToken: string;
+    newRefreshToken: string;
 };
-
-export type Refresh = Promise<RefreshSuccess | RefreshFailure>;
