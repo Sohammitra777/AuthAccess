@@ -29,8 +29,8 @@ function LoginPage() {
                     onChange={(event) => setUserEmail(event.target.value)}
                 />
                 <input
-                    type="password"
-                    placeholder="password"
+                    type="text"
+                    placeholder="text"
                     value={userPassword}
                     onChange={(event) => setUserPassword(event.target.value)}
                 />

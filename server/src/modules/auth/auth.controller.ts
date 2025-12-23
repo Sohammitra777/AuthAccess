@@ -86,7 +86,7 @@ const authController = {
 
         utils.removeCookie(res, "accessToken");
         utils.removeCookie(res, "refreshToken");
-        return res.sendStatus(204);
+        res.sendStatus(204);
     },
 
     refresh: async (req: Request, res: Response) => {
@@ -114,7 +114,7 @@ const authController = {
             newRefreshToken,
             env.REFRESH_TOKEN_AGE
         );
-        return res.sendStatus(204);
+        res.sendStatus(204);
     },
 };
 

@@ -3,14 +3,14 @@ import env from "../config/env";
 
 
 const utils = {
-    success: <T>(res: Response, payload: NoInfer<T>, status: number = 200) => {
+    success: <T>(res: Response, payload: T, status: number = 200) => {
         res.status(status).json({
             success: true,
             ...payload,
         });
     },
 
-    error: <T>(res: Response, payload: NoInfer<T>, status: number = 400) => {
+    error: <T>(res: Response, payload: T, status: number = 400) => {
         return res.status(status).json({
             success: false,
             ...payload,

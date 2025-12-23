@@ -1,5 +1,3 @@
-
-
 export type Role = "user" | "admin";
 
 export type Data = {
@@ -16,7 +14,6 @@ export type Refresh = {
     accessToken: string;
     newRefreshToken: string;
 };
-
 
 export type AuthFailureResponse = {
     error: string;

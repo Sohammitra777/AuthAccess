@@ -8,8 +8,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     const login = useCallback(async (email: string, password: string) => {
-        const user = await authServices.login(email, password);
-        setUser(user);
+        const data = await authServices.login(email, password);
+        console.log(data.user);
+        setUser(data.user);
     }, []);
 
     const logout = useCallback(async () => {
@@ -29,8 +30,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const bootstrapAuth = async () => {
             try {
-                const inncommingUser = await authServices.getMe();
-                setUser(inncommingUser);
+                const data = await authServices.getMe();
+                setUser(data.user);
             } catch {
                 setUser(null);
             } finally {
