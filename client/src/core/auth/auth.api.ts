@@ -1,5 +1,5 @@
 import axios from "axios";
-import axiosConfig from "./axios";
+import axiosConfig from "../axios.api";
 
 export const authApi = axios.create(axiosConfig.extendedClientConfig("/auth"));
 export const baseApi = axios.create(axiosConfig.extendedClientConfig("/auth"));

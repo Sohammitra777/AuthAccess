@@ -1,4 +1,4 @@
-import { authApi } from "../core/api/authApi";
+import { authApi } from "./auth.api";
 
 type ApiSuccess = {
     success: true;
@@ -31,12 +31,12 @@ const authServices = {
 
     getMe: async (): Promise<ApiSuccess> => {
         const result = await authApi.get<ApiSuccess>("/me");
-        const {} = result.data
+        const {} = result.data;
         return result.data;
     },
 
     logout: async () => {
-        return await authApi.post("/logout");
+        await authApi.post("/logout");
     },
 };
 

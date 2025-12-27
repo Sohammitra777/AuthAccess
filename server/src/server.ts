@@ -1,16 +1,16 @@
 import "dotenv/config";
 import app from "./app";
-import env from "./config/env";
+import env from "./core/config/env";
 const PORT = env.PORT || 3000;
 
 process.on("SIGTERM", () => {
-  console.log("🛑 Shutting down...");
-  process.exit(0);
+    console.log("🛑 Shutting down...");
+    process.exit(0);
 });
 
 process.on("SIGINT", () => {
-  console.log("🛑 Interrupted");
-  process.exit(0);
+    console.log("🛑 Interrupted");
+    process.exit(0);
 });
 
 app.listen(PORT, () => {

@@ -1,21 +1,18 @@
-import { useNavigate } from "react-router-dom";
-import useAuth from "../../../core/auth/context/useAuth";
+import { Navigate } from "react-router-dom";
+import useAuth from "../../../core/auth/auth.hook";
 
 function DashboardPage() {
     const { user, logout } = useAuth();
-    const navigate = useNavigate();
+
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
+
     return (
         <main>
             Welcome to the Dashboard
-            {user && user.id}
-            <button
-                onClick={async () => {
-                    await logout();
-                    navigate("/login");
-                }}
-            >
-                Logout
-            </button>
+            {user.id}
+            <button onClick={logout}>Logout</button>
         </main>
     );
 }

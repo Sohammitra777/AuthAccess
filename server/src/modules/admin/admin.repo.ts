@@ -1,6 +1,6 @@
 import { hash } from "argon2";
-import db from "../../drizzle/db";
-import { users } from "../../drizzle/schema/schema";
+import db from "../../core/drizzle/db";
+import { users } from "../../core/drizzle/schema/schema";
 import { User } from "./admin.types";
 import { eq } from "drizzle-orm";
 

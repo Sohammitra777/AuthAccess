@@ -10,12 +10,13 @@ vi.mock("../shared.util", () => ({
 
 vi.mock("../../modules/auth/auth.utils", () => ({
     default: {
-        verifyToken: vi.fn(),
+        verifyAccessToken: vi.fn(),
     },
 }));
 
 import authMiddleware from "../shared.middleware";
-import authUtils from "../../modules/auth/auth.utils";
+import authUtils from "../../core/auth/auth.utils";
+
 describe("testing authMiddleware.validateRequest", () => {
     test("return error if validation fails", () => {
         const mockSchema: any = {
@@ -32,7 +33,7 @@ describe("testing authMiddleware.validateRequest", () => {
             success: false,
             error: { issues: ["invalid"] },
         });
-        const middleware = authMiddleware.validateRequest(mockSchema);
+        const middleware = authMiddleware.validateBody(mockSchema);
         middleware(req, res, next);
 
         expect(utils.error).toHaveBeenCalled();
@@ -55,7 +56,7 @@ describe("testing authMiddleware.validateRequest", () => {
             data: { email: "test@test.com" },
         });
 
-        const middleware = authMiddleware.validateRequest(mockSchema);
+        const middleware = authMiddleware.validateBody(mockSchema);
         middleware(req, res, next);
 
         expect(req.body).toEqual({ email: "test@test.com" });
@@ -77,8 +78,8 @@ describe("testing authMiddleware.requireAuth", () => {
     test("returns 401 when token is invalid", () => {
         const req: any = {
             body: {},
-            headers: {
-                authorization: undefined,
+            cookies: {
+                accessToken: undefined,
             },
         };
 
@@ -86,25 +87,25 @@ describe("testing authMiddleware.requireAuth", () => {
         middleware(req, res, next);
 
         expect(utils.error).toHaveBeenCalled();
-        expect(authUtils.verifyToken).not.toHaveBeenCalled();
+        expect(authUtils.verifyAccessToken).not.toHaveBeenCalled();
         expect(next).not.toHaveBeenCalled();
     });
 
     test("returns 401 verify token throws", () => {
         const req: any = {
             body: {},
-            headers: {
-                authorization: "Bearer abctokenefg",
+            cookies: {
+                accessToken: "accessToken",
             },
         };
 
-        vi.mocked(authUtils.verifyToken).mockImplementation(() => {
+        vi.mocked(authUtils.verifyAccessToken).mockImplementation(() => {
             throw new Error("invalid token");
         });
         const middleware = authMiddleware.requireAuth();
         middleware(req, res, next);
 
-        expect(authUtils.verifyToken).toHaveBeenCalled();
+        expect(authUtils.verifyAccessToken).toHaveBeenCalled();
         expect(utils.error).toHaveBeenCalled();
         expect(next).not.toHaveBeenCalled();
     });
@@ -112,13 +113,12 @@ describe("testing authMiddleware.requireAuth", () => {
     test("sets req.user and calls next when token is valid", () => {
         const req: any = {
             body: {},
-            headers: {
-                authorization: "Bearer abctokenefg",
+            cookies: {
+                accessToken: "accessToken",
             },
         };
 
-        const mockedVerifyToken = vi.mocked(authUtils);
-        mockedVerifyToken.verifyToken.mockReturnValue({
+        vi.mocked(authUtils.verifyAccessToken).mockReturnValue({
             userId: 1,
             userEmail: "test@test@gmail.com",
             userRole: "user",
@@ -132,7 +132,7 @@ describe("testing authMiddleware.requireAuth", () => {
             email: "test@test@gmail.com",
             role: "user",
         });
-        expect(authUtils.verifyToken).toHaveBeenCalled();
+        expect(authUtils.verifyAccessToken).toHaveBeenCalled();
         expect(next).toHaveBeenCalled();
     });
 });

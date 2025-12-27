@@ -18,7 +18,7 @@ authRouter.post(
     authController.login
 );
 
-authRouter.get("/me", sharedMiddleware.requireAuth(), authController.me);
+authRouter.get("/me", authMiddleware.requireAuth(), authController.me);
 
 authRouter.post(
     "/logout",

@@ -1,27 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../context/useAuth";
+import useAuth from "../../auth.hook";
+import { useMutation } from "@tanstack/react-query";
 
 function LoginPage() {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
-    const [error, setError] = useState("");
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        try {
-            await login(userEmail, userPassword);
+    const { mutate, error } = useMutation({
+        mutationFn: () => login(userEmail, userPassword),
+        onSuccess: () => {
             navigate("/dashboard");
-        } catch (err) {
-            setError("Invalid credentials");
-        }
-    };
+        },
+    });
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    mutate();
+                }}
+            >
                 <input
                     type="text"
                     placeholder="email"
@@ -35,7 +37,7 @@ function LoginPage() {
                     onChange={(event) => setUserPassword(event.target.value)}
                 />
                 <button type="submit">Login</button>
-                {error !== "" && <p>Error</p>}
+                {error && <p>Error</p>}
             </form>
         </div>
     );

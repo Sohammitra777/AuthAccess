@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
-import db from "../../drizzle/db";
-import { refreshToken, users } from "../../drizzle/schema/schema";
+import db from "../drizzle/db";
+import { refreshToken, users } from "../drizzle/schema/schema";
 import authUtils from "./auth.utils";
 import {
     RefreshTokenRepoResponse,
@@ -22,9 +22,8 @@ const authRepo = {
 
     createNewUser: async (
         email: string,
-        password: string
+        hash: string
     ): Promise<Omit<UserRepoResponse, "hash">> => {
-        const hash = await authUtils.hashPassword(password);
         const result = await db
             .insert(users)
             .values({
@@ -39,7 +38,7 @@ const authRepo = {
         return result[0];
     },
 
-    createRefreshToken: async (
+    insertRefreshToken: async (
         userId: number,
         tokenHash: string,
         expiresAt: Date

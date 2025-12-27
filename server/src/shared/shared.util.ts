@@ -1,6 +1,5 @@
 import { Response } from "express";
-import env from "../config/env";
-
+import env from "../core/config/env";
 
 const utils = {
     success: <T>(res: Response, payload: T, status: number = 200) => {

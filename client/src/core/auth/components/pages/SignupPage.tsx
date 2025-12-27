@@ -1,26 +1,28 @@
-import React, { useState } from "react";
-import authServices from "../../../services/auth.services";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import authServices from "../../auth.services";
+import { useMutation } from "@tanstack/react-query";
 
 function SignupPage() {
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
-    const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        try {
-            await authServices.signup(userEmail, userPassword);
+    const { mutate, error } = useMutation({
+        mutationFn: async () => authServices.signup(userEmail, userPassword),
+        onSuccess: () => {
             navigate("/login");
-        } catch (err) {
-            setError("Invalid credentials");
-        }
-    };
+        },
+    });
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    mutate();
+                }}
+            >
                 <input
                     type="text"
                     placeholder="email"
@@ -34,8 +36,7 @@ function SignupPage() {
                     onChange={(event) => setUserPassword(event.target.value)}
                 />
                 <button type="submit">Signpup</button>
-                {error !== "" && <p>Error</p>}
-
+                {error && <p>Error</p>}
             </form>
         </div>
     );

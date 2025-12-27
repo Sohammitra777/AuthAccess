@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import authServices from "./auth.services";
-import env from "../../config/env";
+import env from "../config/env";
 import authResponse from "./auth.responses";
 import utils from "../../shared/shared.util";
 
@@ -94,12 +94,14 @@ const authController = {
 
         const result = await authServices.refresh(refreshToken);
 
-        if (!result.success)
+        if (!result.success) {
+            utils.removeCookie(res, "refreshToken");
             return authResponse.error(
                 res,
                 { error: result.message },
                 result.status
             );
+        }
 
         const { accessToken, newRefreshToken } = result.data;
         utils.attachCookie(

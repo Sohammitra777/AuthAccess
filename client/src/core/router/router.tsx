@@ -1,49 +1,41 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../../App";
-import PublicRoute from "../auth/routes/PublicRoute";
-import ProtectedRoute from "../auth/routes/ProtectedRoute";
-import HomePage from "../../feature/Home/pages/HomePage";
-import DashboardPage from "../../feature/dashboard/pages/DashboardPage";
-import LoginPage from "../auth/pages/LoginPage";
-import AdminPage from "../../feature/admin/pages/AdminPage";
-import RoleProtectedRoute from "../auth/routes/RoleProtectedRoute";
-import SignupPage from "../auth/pages/SignupPage";
+import routes, { authRoutes } from "../core";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
+        element: <routes.App />,
         children: [
             {
-                element: <PublicRoute />,
+                element: <authRoutes.PublicRoute />,
                 children: [
                     {
                         path: "/",
-                        element: <HomePage />,
+                        element: <routes.HomePage />,
                     },
                     {
                         path: "/signup",
-                        element: <SignupPage />,
+                        element: <routes.SignupPage />,
                     },
                     {
                         path: "/login",
-                        element: <LoginPage />,
+                        element: <routes.LoginPage />,
                     },
                 ],
             },
             {
-                element: <ProtectedRoute />,
+                element: <authRoutes.ProtectedRoute />,
                 children: [
                     {
                         path: "/dashboard",
-                        element: <DashboardPage />,
+                        element: <routes.DashboardPage />,
                     },
                     {
-                        element: <RoleProtectedRoute role="admin" />,
+                        element: <authRoutes.RoleProtectedRoute role="admin" />,
                         children: [
                             {
                                 path: "/admin",
-                                element: <AdminPage />,
+                                element: <routes.AdminPage />,
                             },
                         ],
                     },

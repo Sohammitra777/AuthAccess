@@ -14,13 +14,11 @@ const authServices = {
             return {
                 success: false,
                 status: 409,
-                message: "User already exist",
+                message: "Unable to Create Account",
             };
 
-        const createdNewUserData = await authRepo.createNewUser(
-            email,
-            password
-        );
+        const hash = await authUtils.hashPassword(password);
+        const createdNewUserData = await authRepo.createNewUser(email, hash);
 
         return {
             success: true,
@@ -41,7 +39,7 @@ const authServices = {
             return {
                 success: false,
                 status: 400,
-                message: "User not registered",
+                message: "Invalid credentials",
             };
         }
 
@@ -54,7 +52,7 @@ const authServices = {
             return {
                 success: false,
                 status: 400,
-                message: "Invalid Password",
+                message: "Invalid credentials",
             };
 
         const accessToken = authUtils.createAccessToken(
@@ -67,7 +65,7 @@ const authServices = {
         const refreshTokenHash = authUtils.hashRefreshToken(refreshToken);
         const expiresAt = authUtils.refreshTokenExpiry();
 
-        await authRepo.createRefreshToken(user.id, refreshTokenHash, expiresAt);
+        await authRepo.insertRefreshToken(user.id, refreshTokenHash, expiresAt);
         return {
             success: true,
             status: 200,
@@ -94,13 +92,13 @@ const authServices = {
             return {
                 success: false,
                 status: 404,
-                message: "User not found",
+                message: "credentials not found",
             };
 
         return {
             success: true,
             status: 200,
-            message: "user validated",
+            message: "credentials validated",
             data: {
                 id: user.id,
                 email: user.email,
@@ -139,7 +137,7 @@ const authServices = {
             };
         }
 
-        // 🔁 ROTATION
+        //  ROTATION
         await authRepo.deleteRefreshToken(token.id);
 
         const newRefreshToken = authUtils.createRefreshToken();
@@ -147,7 +145,7 @@ const authServices = {
 
         const refreshTokenExpiresAt = authUtils.refreshTokenExpiry();
 
-        await authRepo.createRefreshToken(
+        await authRepo.insertRefreshToken(
             token.userId,
             newRefreshTokenHash,
             refreshTokenExpiresAt
@@ -159,7 +157,7 @@ const authServices = {
             return {
                 success: false,
                 status: 401,
-                message: "User not found",
+                message: "Credentials not found",
             };
         }
 
@@ -172,7 +170,7 @@ const authServices = {
         return {
             success: true,
             status: 200,
-            message: "user refreshed",
+            message: "Credentials refreshed",
             data: {
                 accessToken,
                 newRefreshToken,

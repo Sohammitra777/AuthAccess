@@ -4,19 +4,26 @@ vi.mock("../auth.repo", () => ({
     default: {
         checkUserExist: vi.fn(),
         createNewUser: vi.fn(),
+        insertRefreshToken: vi.fn(),
     },
 }));
 
 vi.mock("../auth.utils", () => ({
     default: {
+        hashPassword: vi.fn(),
         verifyPassword: vi.fn(),
-        signinToken: vi.fn(),
+        createAccessToken: vi.fn(),
+        verifyAccessToken: vi.fn(),
+        hashRefreshToken: vi.fn(),
+        createRefreshToken: vi.fn(),
+        refreshTokenExpiry: vi.fn(),
     },
 }));
 
 import authRepo from "../auth.repo";
 import authServices from "../auth.services";
 import authUtils from "../auth.utils";
+
 describe("authServices.signup test", () => {
     test("return 409 in case of conflict", async () => {
         const mockedRepo = vi.mocked(authRepo);
@@ -41,13 +48,11 @@ describe("authServices.signup test", () => {
     test("return 201 when user successfully created", async () => {
         const mockedRepo = vi.mocked(authRepo);
         mockedRepo.checkUserExist.mockResolvedValue([]);
-        mockedRepo.createNewUser.mockResolvedValue([
-            {
-                id: 1,
-                email: "test@test.com",
-                role: "user",
-            },
-        ]);
+        mockedRepo.createNewUser.mockResolvedValue({
+            id: 1,
+            email: "test@test.com",
+            role: "user",
+        });
 
         const result = await authServices.signup("email", "password");
         expect(mockedRepo.checkUserExist).toHaveBeenCalled();
@@ -76,7 +81,7 @@ describe("authService.login test", () => {
             message: "User not registered",
         });
         expect(authUtils.verifyPassword).not.toHaveBeenCalled();
-        expect(authUtils.signinToken).not.toHaveBeenCalled();
+        expect(authUtils.createAccessToken).not.toHaveBeenCalled();
     });
 
     test("return 400 when invalid password", async () => {
@@ -116,7 +121,11 @@ describe("authService.login test", () => {
         ]);
 
         vi.mocked(authUtils.verifyPassword).mockResolvedValue(true);
-        vi.mocked(authUtils.signinToken).mockReturnValue("validToken");
+        vi.mocked(authUtils.createAccessToken).mockReturnValue("accessToken");
+        vi.mocked(authUtils.createRefreshToken).mockReturnValue("refreshToken");
+        vi.mocked(authUtils.hashRefreshToken);
+        vi.mocked(authUtils.refreshTokenExpiry);
+        vi.mocked(authRepo.insertRefreshToken);
 
         const result = await authServices.login(
             "test@test.com",
@@ -125,7 +134,7 @@ describe("authService.login test", () => {
 
         expect(authRepo.checkUserExist).toHaveBeenCalled();
         expect(authUtils.verifyPassword).toHaveBeenCalled();
-        expect(authUtils.signinToken).toHaveBeenCalled();
+        expect(authUtils.createAccessToken).toHaveBeenCalled();
         expect(result).toEqual({
             success: true,
             status: 200,
@@ -134,7 +143,10 @@ describe("authService.login test", () => {
                 id: 1,
                 email: "test@test.com",
                 role: "admin",
-                token: "validToken",
+                token: {
+                    accessToken: "accessToken",
+                    refreshToken: "refreshToken",
+                },
             },
         });
     });
@@ -157,24 +169,25 @@ describe("testing authServices.me", () => {
     test("return 200 when user data exist", async () => {
         vi.mocked(authRepo.checkUserExist).mockResolvedValue([
             {
-                id: 1, 
-                email: "test@test.com", 
+                id: 1,
+                email: "test@test.com",
                 hash: "hashedPassword",
-                role: "user"
-            }
-        ])
+                role: "user",
+            },
+        ]);
 
-        const result = await authServices.me("test@test.com"); 
+        const result = await authServices.me("test@test.com");
 
-        expect(authRepo.checkUserExist).toHaveBeenCalled(); 
+        expect(authRepo.checkUserExist).toHaveBeenCalled();
         expect(result).toEqual({
             success: true,
             status: 200,
+            message: "user validated",
             data: {
                 id: 1,
                 email: "test@test.com",
                 role: "user",
             },
-        })
-    })
+        });
+    });
 });
