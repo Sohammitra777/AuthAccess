@@ -17,3 +17,8 @@ export type AuthContextType = {
     login: (email: string, password: string) => Promise<User | void>;
     logout: () => Promise<void>;
 };
+
+export type LoginSchmema = {
+    email: string;
+    password: string;
+};

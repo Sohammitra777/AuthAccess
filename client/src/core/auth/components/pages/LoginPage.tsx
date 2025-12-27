@@ -8,6 +8,7 @@ function LoginPage() {
     const [userPassword, setUserPassword] = useState("");
     const navigate = useNavigate();
     const { login } = useAuth();
+    const [password, setPassword] = useState(true);
 
     const { mutate, isPending, error } = useMutation({
         mutationFn: () => login(userEmail, userPassword),
@@ -15,26 +16,36 @@ function LoginPage() {
     });
 
     return (
-        <div>
+        <div className="flex justify-center items-center">
             <form
+                className="p-4 flex flex-col bg-[#2E4F4F] gap-4"
                 onSubmit={(e) => {
                     e.preventDefault();
                     mutate();
                 }}
             >
                 <input
+                    className="border"
                     type="text"
                     placeholder="email"
                     value={userEmail}
                     onChange={(event) => setUserEmail(event.target.value)}
                 />
-                <input
-                    type="text"
-                    placeholder="text"
-                    value={userPassword}
-                    onChange={(event) => setUserPassword(event.target.value)}
-                />
-                <button type="submit">
+
+                <div className="flex gap-5">
+                    <input
+                        className="border"
+                        type={password?"password":"text"}
+                        placeholder="password"
+                        value={userPassword}
+                        onChange={(event) =>
+                            setUserPassword(event.target.value)
+                        }
+                    />
+                    <p onClick={() => setPassword(!password)}>I</p>
+                </div>
+
+                <button className="border hover:cursor-pointer" type="submit">
                     {isPending ? "Logging in..." : "Login"}
                 </button>
                 {error && <p>Error</p>}

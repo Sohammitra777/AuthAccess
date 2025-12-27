@@ -92,13 +92,13 @@ const authServices = {
             return {
                 success: false,
                 status: 404,
-                message: "credentials not found",
+                message: "Credentials not found",
             };
 
         return {
             success: true,
             status: 200,
-            message: "credentials validated",
+            message: "Credentials validated",
             data: {
                 id: user.id,
                 email: user.email,

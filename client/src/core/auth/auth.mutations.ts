@@ -1,10 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import authServices from "./auth.services";
-
-type LoginSchmema = {
-    email: string;
-    password: string;
-};
+import type { LoginSchmema } from "./auth.types";
 
 export const useLoginMutation = () => {
     const queryClient = useQueryClient();
@@ -22,7 +18,9 @@ export const useLogoutMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async () => await authServices.logout(),
-        onSettled: () => queryClient.setQueryData(["auth", "me"], null),
+        mutationFn: async () => {
+            queryClient.setQueryData(["auth", "me"], null);
+            await authServices.logout();
+        },
     });
 };

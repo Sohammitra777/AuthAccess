@@ -8,12 +8,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const loginMutation = useLoginMutation();
     const logoutMutation = useLogoutMutation();
 
-    const user = data ?? null;
-    const loading = isPending;
-
     const authValue = {
-        user,
-        loading,
+        user: data ?? null,
+        loading: isPending,
         login: (email: string, password: string) =>
             loginMutation.mutateAsync({ email, password }),
         logout: () => logoutMutation.mutateAsync(),

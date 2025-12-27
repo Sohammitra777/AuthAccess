@@ -1,7 +1,6 @@
 import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
 import { refreshToken, users } from "../drizzle/schema/schema";
-import authUtils from "./auth.utils";
 import {
     RefreshTokenRepoResponse,
     UserRepoResponse,

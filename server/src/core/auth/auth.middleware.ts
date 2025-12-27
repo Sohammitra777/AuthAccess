@@ -34,6 +34,7 @@ const authMiddleware = {
             }
         };
     },
+    
     validateRefreshToken: () => {
         return (req: Request, res: Response, next: NextFunction) => {
             const refreshToken = req.cookies.refreshToken;
