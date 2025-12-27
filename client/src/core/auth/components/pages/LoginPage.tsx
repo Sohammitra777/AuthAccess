@@ -9,11 +9,9 @@ function LoginPage() {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    const { mutate, error } = useMutation({
+    const { mutate, isPending, error } = useMutation({
         mutationFn: () => login(userEmail, userPassword),
-        onSuccess: () => {
-            navigate("/dashboard");
-        },
+        onSuccess: () => navigate("/dashboard"),
     });
 
     return (
@@ -36,7 +34,9 @@ function LoginPage() {
                     value={userPassword}
                     onChange={(event) => setUserPassword(event.target.value)}
                 />
-                <button type="submit">Login</button>
+                <button type="submit">
+                    {isPending ? "Logging in..." : "Login"}
+                </button>
                 {error && <p>Error</p>}
             </form>
         </div>

@@ -1,41 +1,27 @@
-import React, { useCallback, useMemo } from "react";
+import React from "react";
 import AuthContext from "../../auth.context";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import authServices from "../../auth.services";
+import { useLoginMutation, useLogoutMutation } from "../../auth.mutations";
+import { useMeQuery } from "../../auth.queries";
+
 function AuthProvider({ children }: { children: React.ReactNode }) {
-    const queryClient = useQueryClient();
-    const { data, isPending } = useQuery({
-        queryKey: ["auth", "me"],
-        queryFn: async () => {
-            const data = await authServices.getMe();
-            return data.user;
-        },
-        retry: false,
-    });
+    const { data, isPending } = useMeQuery();
+    const loginMutation = useLoginMutation();
+    const logoutMutation = useLogoutMutation();
+
     const user = data ?? null;
     const loading = isPending;
-    const login = useCallback(
-        async (email: string, password: string) => {
-            const data = await authServices.login(email, password);
-            queryClient.setQueryData(["auth", "me"], data.user);
-        },
-        [queryClient]
-    );
-    const logout = useCallback(async () => {
-        try {
-            await authServices.logout();
-        } finally {
-            queryClient.setQueryData(["auth", "me"], null);
-        }
-    }, [queryClient]);
-    const authValue = useMemo(
-        () => ({ user, loading, login, logout }),
-        [user, loading, login, logout]
-    );
+
+    const authValue = {
+        user,
+        loading,
+        login: (email: string, password: string) =>
+            loginMutation.mutateAsync({ email, password }),
+        logout: () => logoutMutation.mutateAsync(),
+    };
+
     return (
         <AuthContext.Provider value={authValue}>
-            {" "}
-            {children}{" "}
+            {children}
         </AuthContext.Provider>
     );
 }

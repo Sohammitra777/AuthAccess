@@ -8,7 +8,7 @@ function SignupPage() {
     const [userPassword, setUserPassword] = useState("");
     const navigate = useNavigate();
 
-    const { mutate, error } = useMutation({
+    const { mutate, isPending, error } = useMutation({
         mutationFn: async () => authServices.signup(userEmail, userPassword),
         onSuccess: () => {
             navigate("/login");
@@ -35,7 +35,7 @@ function SignupPage() {
                     value={userPassword}
                     onChange={(event) => setUserPassword(event.target.value)}
                 />
-                <button type="submit">Signpup</button>
+                <button type="submit">{isPending?"Signing in...":"Sign-Up"}</button>
                 {error && <p>Error</p>}
             </form>
         </div>
