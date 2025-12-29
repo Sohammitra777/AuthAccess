@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 
 function PublicNavbar() {
     return (
-        <div className="flex justify-center items-center">
-            <div className="m-2 p-4 rounded-lg w-full bg-black flex justify-evenly">
-                <Link to="/">Home</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Signup</Link>
+        <div className="mt-2 flex">
+            <div className="m-2 p-4 font-serif text-2xl rounded-lg w-full bg-[#c15f3c] text-[#f4f3ee] flex justify-between">
+                <Link to="/">AuthAccess</Link>
+                <div className="flex gap-4">
+                    <Link to="/login">Login</Link>
+                    <Link to="/signup">Signup</Link>
+                </div>
             </div>
         </div>
     );
