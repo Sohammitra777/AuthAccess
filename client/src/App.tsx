@@ -5,7 +5,7 @@ import PublicNavbar from "./shared/components/PublicNavbar";
 function App() {
     const { user } = useAuth();
     return (
-        <main className="h-full bg-black text-white flex flex-col">
+        <main className="h-full bg-black text-white flex flex-col select-none">
             {user ? <p>Authenticated</p> : <PublicNavbar />}
             <Outlet />
         </main>

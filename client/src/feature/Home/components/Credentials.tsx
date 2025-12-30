@@ -1,4 +1,4 @@
-import Clipboard from "./subcomponents/Clipboard";
+import Clipboard from "./Credentials/Clipboard";
 import credentials from "../home.data";
 
 function Credentials() {

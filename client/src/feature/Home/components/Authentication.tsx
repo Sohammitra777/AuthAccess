@@ -6,7 +6,7 @@ function Authentication() {
             <h1 className="m-5 text-[#f4f3ee] text-2xl md:text-4xl font-bold">
                 Authentication
             </h1>
-            <div className="m-2 mb-7 flex items-center gap-10">
+            <div className="m-2 flex items-center gap-10">
                 <p>
                     Experience a complete authentication workflow with secure
                     login, refresh tokens, and session handling. It’s built to
@@ -19,10 +19,14 @@ function Authentication() {
                     alt="authentication image"
                 />
             </div>
+            <p className="mb-5 text-[#c15f3c] font-bold text-3xl">
+                Flow Diagram
+            </p>
             <div className="flex justify-evenly md:justify-between gap-2">
                 {homeAssets.image.map((img) => (
                     <a
-                        className="p-1 sm:pr-2 sm:pl-2 border border-[#c15f3c] text-[#f4f3ee] rounded-lg"
+                        className="p-1 sm:pr-2 sm:pl-2 border-2 border-[#c15f3c] hover:border-[#b1ada1]
+                        text-[#f4f3ee] hover:text-[#c15f3c] rounded-lg duration-150 ease-in-out"
                         target="_blank"
                         href={img[1]}
                     >

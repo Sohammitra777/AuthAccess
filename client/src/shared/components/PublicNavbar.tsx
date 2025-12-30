@@ -6,8 +6,7 @@ function PublicNavbar() {
             <div className="m-2 p-4 font-serif text-2xl rounded-lg w-full bg-[#c15f3c] text-[#f4f3ee] flex justify-between">
                 <Link to="/">AuthAccess</Link>
                 <div className="flex gap-4">
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">Signup</Link>
+                    <Link to="/login">Login/Signup</Link>
                 </div>
             </div>
         </div>
