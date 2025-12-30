@@ -15,7 +15,7 @@ const adminRepo = {
             .from(users);
     },
 
-    findById: async (id: number) => {
+    findById: async (id: string) => {
         return await db
             .select({
                 id: users.id,
@@ -53,7 +53,7 @@ const adminRepo = {
             });
     },
 
-    updateUser: async (id: number, adminUser: Pick<User, "email" | "role">) => {
+    updateUser: async (id: string, adminUser: Pick<User, "email" | "role">) => {
         return await db
             .update(users)
             .set({
@@ -68,7 +68,7 @@ const adminRepo = {
             });
     },
 
-    deleteUser: async (id: number) => {
+    deleteUser: async (id: string) => {
         return await db.delete(users).where(eq(users.id, id)).returning({
             email: users.email,
             role: users.role,

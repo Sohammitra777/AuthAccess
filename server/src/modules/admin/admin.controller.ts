@@ -26,7 +26,7 @@ const adminController = {
     },
 
     updateUser: async (req: Request, res: Response) => {
-        const id = Number(req.params.id);
+        const id = req.params.id;
         const serviceResult = await adminServices.updateUser(id, req.body);
 
         utils.success(
@@ -37,7 +37,7 @@ const adminController = {
     },
 
     deleteUser: async (req: Request, res: Response) => {
-        const id = Number(req.params.id);
+        const id = req.params.id;
 
         const serviceResult = await adminServices.deleteUser(id);
         if (!serviceResult.success)

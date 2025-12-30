@@ -15,6 +15,48 @@
       "when": 1766255050874,
       "tag": "0001_lonely_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1767107335252,
+      "tag": "0002_bent_black_crow",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1767107368263,
+      "tag": "0003_tidy_rage",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1767107507760,
+      "tag": "0004_luxuriant_gladiator",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1767107542879,
+      "tag": "0005_mysterious_sinister_six",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1767108539156,
+      "tag": "0006_loose_betty_ross",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1767108565456,
+      "tag": "0007_fair_dreadnoughts",
+      "breakpoints": true
     }
   ]
 }

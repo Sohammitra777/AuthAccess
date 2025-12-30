@@ -14,7 +14,7 @@ const authUtils = {
     },
 
     createAccessToken: (
-        userId: number,
+        userId: string,
         userEmail: string,
         userRole: string
     ) => {

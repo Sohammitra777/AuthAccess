@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import routes, { authRoutes } from "../core";
+import PrivateNavbar from "../../shared/components/PrivateNavbar";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,9 @@ const router = createBrowserRouter([
             {
                 element: <authRoutes.ProtectedRoute />,
                 children: [
+                    {
+                        element: <PrivateNavbar />,
+                    },
                     {
                         path: "/dashboard",
                         element: <routes.DashboardPage />,

@@ -30,7 +30,7 @@ type ServiceResponseFailure = {
 export type ServiceResponse<R> = ServiceResponseSuccess<R> | ServiceResponseFailure;
 
 type UserRepoResponse = {
-    id: number;
+    id: string;
     hash: string;
     email: string;
     role: string;
@@ -38,7 +38,7 @@ type UserRepoResponse = {
 
 type RefreshTokenRepoResponse = {
     id: string;
-    userId: number;
+    userId: string;
     tokenHash: string;
     createdAt: Date;
     expiresAt: Date;

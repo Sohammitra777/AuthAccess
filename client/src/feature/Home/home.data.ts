@@ -1,8 +1,8 @@
 const credentials = {
-    userEamil: "test@test.com",
-    userPassword: "test1234",
-    adminEmail: "safe@example.com",
-    adminPassword: "hello123",
+    userEamil: "user@user.com",
+    userPassword: "user1234",
+    adminEmail: "admin@admin.com",
+    adminPassword: "admin1234",
 };
 
 export default credentials;

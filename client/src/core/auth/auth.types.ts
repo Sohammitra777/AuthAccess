@@ -1,12 +1,12 @@
 export type JwtPayload = {
-    userId: number;
+    userId: string;
     userEmail: string;
     userRole: string;
     exp: number;
 };
 
 export type User = {
-    id: number;
+    id: string;
     email: string;
     role: string;
 };

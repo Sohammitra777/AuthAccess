@@ -1,7 +1,7 @@
 export type Role = "user" | "admin";
 
 export type Data = {
-    id: number;
+    id: string;
     email: string;
     role: string;
     token: {
@@ -22,7 +22,7 @@ export type AuthFailureResponse = {
 export type AuthSuccessResponse = {
     message: string;
     user: {
-        id: number;
+        id: string;
         email: string;
         role: string;
     };

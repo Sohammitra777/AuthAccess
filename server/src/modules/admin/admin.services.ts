@@ -17,7 +17,7 @@ const adminServices = {
             success: true,
             status: 200,
             message: "User array",
-            data: repoResult[0],
+            data: repoResult,
         };
     },
 
@@ -41,7 +41,7 @@ const adminServices = {
         };
     },
 
-    updateUser: async (id: number, adminUser: Pick<User, "email" | "role">) => {
+    updateUser: async (id: string, adminUser: Pick<User, "email" | "role">) => {
         const repoResult = await adminRepo.updateUser(id, adminUser);
 
         return {
@@ -52,7 +52,7 @@ const adminServices = {
         };
     },
 
-    deleteUser: async (id: number) => {
+    deleteUser: async (id: string) => {
         const findUserById = await adminRepo.findById(id);
         if (findUserById.length === 0)
             return {

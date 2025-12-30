@@ -11,7 +11,7 @@ const authRepo = {
         return await db.select().from(users).where(eq(users.email, email));
     },
 
-    getUserById: async (userId: number): Promise<UserRepoResponse> => {
+    getUserById: async (userId: string): Promise<UserRepoResponse> => {
         const result = await db
             .select()
             .from(users)
@@ -38,7 +38,7 @@ const authRepo = {
     },
 
     insertRefreshToken: async (
-        userId: number,
+        userId: string,
         tokenHash: string,
         expiresAt: Date
     ): Promise<void> => {
