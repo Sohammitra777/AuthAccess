@@ -1,8 +1,8 @@
 function WelcomeUserDashboard(){
     return (
         <div className="flex flex-col items-center">
-            <h1 className="text-4xl">Welcome to the User Dashboard.</h1>
-            <p className="p-4 text-2xl text-[#b1ada1] text-center tracking-widest">
+            <h1 className="text-xl sm:text-4xl">Welcome to the User Dashboard.</h1>
+            <p className="p-4 text-sm sm:text-2xl text-[#b1ada1] text-center tracking-widest">
                 This is the “no-superpowers” zone — a streamlined space where
                 users can explore standard user-level features without
                 accidentally breaking anything important. Unlike the admin view,

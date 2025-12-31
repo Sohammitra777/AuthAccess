@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import routes, { authRoutes } from "../core";
 import PrivateNavbar from "../../shared/components/PrivateNavbar";
+import CreateUserPage from "../../feature/admin/pages/CreateUsersPage";
+import CreateAdminPage from "../../feature/admin/pages/CreateAdminPage";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
                             {
                                 path: "/admin",
                                 element: <routes.AdminPage />,
+                            },
+                            {
+                                path: "/admin/users",
+                                element: <CreateUserPage />,
+                            },
+                            {
+                                path: "/admin/admins",
+                                element: <CreateAdminPage />,
                             },
                         ],
                     },

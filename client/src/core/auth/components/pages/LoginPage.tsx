@@ -18,7 +18,7 @@ function LoginPage() {
         <div className="font-serif h-full text-[#EDEADE] flex flex-col justify-center items-center">
             <h1 className="mb-4 text-3xl">AuthAccess Login</h1>
             <form
-                className="min-w-lg p-6 rounded-2xl text-xl border border-[#b1ada1] text-center flex flex-col"
+                className="sm:min-w-lg p-4 sm:p-6 rounded-2xl sm:text-xl border border-[#b1ada1] text-center flex flex-col"
                 onSubmit={(e) => {
                     e.preventDefault();
                     mutate();

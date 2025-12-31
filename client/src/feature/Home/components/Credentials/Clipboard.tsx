@@ -25,7 +25,7 @@ function Clipboard({
             <ClipboardDetail role={role} copy={email} />
             <ClipboardDetail role={role} copy={password} />
             <button
-                className="mt-6 p-1 pl-2 pr-2 rounded-lg bg-[#c15f3c] 
+                className="mt-2 sm:mt-6 p-1 pl-2 pr-2 rounded-lg bg-[#c15f3c] 
                         hover:bg-black text-[#f4f3ee] cursor-pointer duration-150 ease-in"
                 onClick={() => {
                     mutate();

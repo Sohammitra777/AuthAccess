@@ -1,8 +1,8 @@
 function WelcomeAdminDashboard() {
     return (
         <div className="flex flex-col items-center">
-            <h1 className="text-4xl">Welcome to the Admin Dashboard.</h1>
-            <p className="p-4 text-2xl text-[#b1ada1] text-center tracking-widest">
+            <h1 className="text-xl sm:text-4xl">Welcome to the Admin Dashboard.</h1>
+            <p className="p-4 sm:text-2xl  text-[#b1ada1] text-center tracking-widest">
                 This is where the superpowers live — the place with all the
                 buttons you definitely don’t want in the hands of regular users.
                 From viewing every account in the database to creating,

@@ -11,8 +11,9 @@ function DashboardPage() {
 
     const { mutate } = useMutation({
         mutationFn: async () => {
+            const userId = user.id;
             logout();
-            userServices.deleteUser(user.id);
+            userServices.deleteUser(userId);
         },
     });
     return (
@@ -25,7 +26,7 @@ function DashboardPage() {
             <DashboardLinks />
             <button
                 className="mb-0 m-4 p-2 font-mono font-bold border-2 border-red-700 
-                text-red-700 text-xl rounded-lg cursor-pointer duration-150 ease-in"
+                text-red-700 text-sm sm:text-xl rounded-lg cursor-pointer duration-150 ease-in"
                 onClick={() => mutate()}
             >
                 Delete {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
