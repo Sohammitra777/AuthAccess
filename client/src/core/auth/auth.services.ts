@@ -1,43 +1,43 @@
 import { authApi } from "./auth.api";
 
 type ApiSuccess = {
-  success: true;
-  message: string;
-  user: {
-    id: number;
-    email: string;
-    role: string;
-  };
+    success: true;
+    message: string;
+    user: {
+        id: number;
+        email: string;
+        role: string;
+    };
 };
 
 const authServices = {
-  signup: async (email: string, password: string): Promise<ApiSuccess> => {
-    const result = await authApi.post<ApiSuccess>("/signup", {
-      email,
-      password,
-    });
+    signup: async (email: string, password: string): Promise<ApiSuccess> => {
+        const result = await authApi.post<ApiSuccess>("/signup", {
+            email,
+            password,
+        });
 
-    return result.data;
-  },
+        return result.data;
+    },
 
-  login: async (email: string, password: string): Promise<ApiSuccess> => {
-    const result = await authApi.post<ApiSuccess>("/login", {
-      email,
-      password,
-    });
+    login: async (email: string, password: string): Promise<ApiSuccess> => {
+        const result = await authApi.post<ApiSuccess>("/login", {
+            email,
+            password,
+        });
 
-    return result.data;
-  },
+        return result.data;
+    },
 
-  getMe: async (): Promise<ApiSuccess> => {
-    const result = await authApi.get<ApiSuccess>("/me");
-    const {} = result.data;
-    return result.data;
-  },
+    getMe: async (): Promise<ApiSuccess> => {
+        const result = await authApi.get<ApiSuccess>("/me");
+        const {} = result.data;
+        return result.data;
+    },
 
-  logout: async () => {
-    await authApi.post("/logout");
-  },
+    logout: async () => {
+        await authApi.post("/logout");
+    },
 };
 
 export default authServices;
