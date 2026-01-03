@@ -11,18 +11,18 @@ import DashboardPage from "../feature/dashboard/pages/DashboardPage";
 import App from "../App";
 
 export const authRoutes = {
-    PublicRoute,
-    ProtectedRoute,
-    RoleProtectedRoute,
+  PublicRoute,
+  ProtectedRoute,
+  RoleProtectedRoute,
 };
 
 const routes = {
-    App,
-    DashboardPage,
-    LoginPage,
-    SignupPage,
-    HomePage,
-    AdminPage,
+  App,
+  DashboardPage,
+  LoginPage,
+  SignupPage,
+  HomePage,
+  AdminPage,
 };
 
 export default routes;

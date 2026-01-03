@@ -6,33 +6,32 @@ import WelcomeUserDashboard from "../components/WelcomeUserDashboard";
 import WelcomeAdminDashboard from "../components/WelcomeAdminDashboard";
 
 function DashboardPage() {
-    const { logout } = useAuth();
-    const { user } = useAuthRequired();
+  const { logout } = useAuth();
+  const { user } = useAuthRequired();
 
-    const { mutate } = useMutation({
-        mutationFn: async () => {
-            const userId = user.id;
-            logout();
-            userServices.deleteUser(userId);
-        },
-    });
-    return (
-        <main className="h-full m-4 text-[#f4f3ee] text-mono flex flex-col items-center">
-            {user.role === "admin" ? (
-                <WelcomeAdminDashboard />
-            ) : (
-                <WelcomeUserDashboard />
-            )}
-            <DashboardLinks />
-            <button
-                className="mb-0 m-4 p-2 font-mono font-bold border-2 border-red-700 
-                text-red-700 text-sm sm:text-xl rounded-lg cursor-pointer duration-150 ease-in"
-                onClick={() => mutate()}
-            >
-                Delete {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-            </button>
-        </main>
-    );
+  const { mutate } = useMutation({
+    mutationFn: async () => {
+      const userId = user.id;
+      logout();
+      userServices.deleteUser(userId);
+    },
+  });
+  return (
+    <main className="text-mono m-4 flex h-full flex-col items-center text-[#f4f3ee]">
+      {user.role === "admin" ? (
+        <WelcomeAdminDashboard />
+      ) : (
+        <WelcomeUserDashboard />
+      )}
+      <DashboardLinks />
+      <button
+        className="m-4 mb-0 cursor-pointer rounded-lg border-2 border-red-700 p-2 font-mono text-sm font-bold text-red-700 duration-150 ease-in sm:text-xl"
+        onClick={() => mutate()}
+      >
+        Delete {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+      </button>
+    </main>
+  );
 }
 
 export default DashboardPage;

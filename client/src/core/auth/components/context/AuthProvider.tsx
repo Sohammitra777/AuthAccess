@@ -4,22 +4,20 @@ import { useLoginMutation, useLogoutMutation } from "../../auth.mutations";
 import { useMeQuery } from "../../auth.queries";
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-    const { data, isPending } = useMeQuery();
-    const loginMutation = useLoginMutation();
-    const logoutMutation = useLogoutMutation();
+  const { data, isPending } = useMeQuery();
+  const loginMutation = useLoginMutation();
+  const logoutMutation = useLogoutMutation();
 
-    const authValue = {
-        user: data ?? null,
-        loading: isPending,
-        login: (email: string, password: string) =>
-            loginMutation.mutateAsync({ email, password }),
-        logout: () => logoutMutation.mutateAsync(),
-    };
+  const authValue = {
+    user: data ?? null,
+    loading: isPending,
+    login: (email: string, password: string) =>
+      loginMutation.mutateAsync({ email, password }),
+    logout: () => logoutMutation.mutateAsync(),
+  };
 
-    return (
-        <AuthContext.Provider value={authValue}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
+  );
 }
 export default AuthProvider;

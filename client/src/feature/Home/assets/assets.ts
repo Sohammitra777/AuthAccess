@@ -12,19 +12,19 @@ import logout from "../assets/img/logout.png";
 import refresh from "../assets/img/refresh.png";
 
 const homeAssets = {
-    icon: {
-        authentication,
-        authorization,
-        clipboard,
-        copyDone,
-    },
-    image: [
-        ["Signup", signup],
-        ["Login", login],
-        ["Me", me],
-        ["Logout", logout],
-        ["Refresh", refresh],
-    ],
+  icon: {
+    authentication,
+    authorization,
+    clipboard,
+    copyDone,
+  },
+  image: [
+    ["Signup", signup],
+    ["Login", login],
+    ["Me", me],
+    ["Logout", logout],
+    ["Refresh", refresh],
+  ],
 };
 
 export default homeAssets;
