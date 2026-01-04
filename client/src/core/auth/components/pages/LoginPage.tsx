@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../auth.hook";
+import { useContextAuth } from "../../auth.hook";
 import { useMutation } from "@tanstack/react-query";
 
 function LoginPage() {
-    const { login } = useAuth();
+    const { login } = useContextAuth();
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");

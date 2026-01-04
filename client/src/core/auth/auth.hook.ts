@@ -1,28 +1,28 @@
 import { useContext } from "react";
 import AuthContext from "./auth.context";
-import type { AuthContextType, User } from "./auth.types";
+import type { User, AuthContextType } from "./auth.types";
 
-const useAuth = () => {
+export const useContextAuth = () => {
     const context = useContext(AuthContext);
+
     if (!context) {
         throw new Error("useAuth must be used within AuthProvider");
     }
     return context;
 };
 
-export function useAuthRequired() {
-    const { user, loading, login, logout } = useAuth();
+const useAuth = () => {
+    const { user, loading, login, logout } = useContextAuth();
 
-    if (!user) {
-        throw new Error("useAuthRequired used without an authenticated user");
-    }
+    if (!user) throw new Error("useAuth must be used inside protected routes");
 
-    return {
+    const value: Omit<AuthContextType, "user"> & { user: User } = {
         user,
         loading,
         login,
         logout,
-    } as Omit<AuthContextType, "user"> & { user: User };
-}
+    };
+    return value;
+};
 
 export default useAuth;

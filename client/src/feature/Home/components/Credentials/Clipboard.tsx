@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import useAuth from "../../../../core/auth/auth.hook";
+import { useContextAuth } from "../../../../core/auth/auth.hook";
 import { useNavigate } from "react-router-dom";
 import ClipboardDetail from "./ClipboardDetail";
 
@@ -12,7 +12,7 @@ function Clipboard({
     password: string;
     role: string;
 }) {
-    const { login } = useAuth();
+    const { login } = useContextAuth();
     const navigate = useNavigate();
 
     const { mutate, isPending } = useMutation({

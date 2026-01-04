@@ -1,15 +1,17 @@
-import { useAuthRequired } from "../../../core/auth/auth.hook";
+import useAuth from "../../../core/auth/auth.hook";
 import adminAssets from "../assets/assets";
 import { useAdminDeleteUser } from "../admin.mutations";
 import { useAdminFetchUserData } from "../admin.queries";
 import EmptyList from "../components/EmptyList";
+import UpdateRole from "../components/UpdateRole";
+import LoadingPage from "../../../shared/page/LoadingPage";
 
 function AdminPage() {
-    const { user } = useAuthRequired();
+    const { user } = useAuth();
     const { data, isPending } = useAdminFetchUserData();
     const { mutate } = useAdminDeleteUser();
 
-    if (isPending) return <p>Loading Users</p>;
+    if (isPending) return <LoadingPage />;
     if (!data || data.length === 1) return <EmptyList />;
     return (
         <ul>
@@ -24,12 +26,17 @@ function AdminPage() {
                                 <p>{u.email}</p>
                                 {u.role === "admin" && <p>Admin</p>}
                             </div>
-                            <img
-                                onClick={() => mutate(u.id)}
-                                className="h-5 w-5 duration-150 hover:h-7 hover:w-7"
-                                src={adminAssets.icon.deleteIcon}
-                                alt="delete Icon"
-                            />
+                            <div className="flex items-center gap-4">
+                                <UpdateRole id={u.id} role={u.role} />
+                                <img
+                                    onClick={() => {
+                                        mutate(u.id);
+                                    }}
+                                    className="h-5 w-5 duration-150 hover:h-7 hover:w-7"
+                                    src={adminAssets.icon.deleteIcon}
+                                    alt="delete Icon"
+                                />
+                            </div>
                         </li>
                     ),
             )}

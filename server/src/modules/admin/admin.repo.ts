@@ -2,7 +2,7 @@ import { hash } from "argon2";
 import db from "../../core/drizzle/db";
 import { users } from "../../core/drizzle/schema/schema";
 import { User } from "./admin.types";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 
 const adminRepo = {
     getUsers: async () => {
@@ -12,7 +12,8 @@ const adminRepo = {
                 email: users.email,
                 role: users.role,
             })
-            .from(users);
+            .from(users)
+            .orderBy(asc(users.email));
     },
 
     findById: async (id: string) => {

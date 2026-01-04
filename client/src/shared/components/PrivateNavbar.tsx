@@ -1,13 +1,10 @@
-import { Navigate } from "react-router-dom";
-import { useAuthRequired } from "../../core/auth/auth.hook";
 import PrivateUserNavbar from "./PrivateUserNavbar";
 import PrivateAdminNavbar from "./PrivateAdminNavbar";
+import useAuth from "../../core/auth/auth.hook";
 
 function PrivateNavbar() {
-    const { user } = useAuthRequired();
+    const { user } = useAuth();
 
-    if (user.role !== "admin" && user.role !== "user")
-        return <Navigate to="/login" replace />;
     if (user.role === "user") return <PrivateUserNavbar />;
     if (user.role === "admin") return <PrivateAdminNavbar />;
 }

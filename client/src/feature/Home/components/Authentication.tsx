@@ -25,6 +25,7 @@ function Authentication() {
             <div className="mr-1 flex justify-evenly gap-2 md:justify-between">
                 {homeAssets.image.map((img) => (
                     <a
+                        key={img[0]}
                         className="rounded-lg border border-[#c15f3c] p-1 text-[#f4f3ee] duration-150 ease-in-out hover:border-[#b1ada1] hover:text-[#c15f3c] sm:border-2 sm:pr-2 sm:pl-2"
                         target="_blank"
                         href={img[1]}

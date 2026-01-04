@@ -12,7 +12,7 @@ export const useAdminDeleteUser = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (id: string) => adminServices.deleteUser(id),
+        mutationFn: (id: string) => adminServices.deleteUser(id),
         onMutate: (id: string) => {
             const previousData = queryClient.getQueryData(["admin", "users"]);
 
@@ -30,9 +30,6 @@ export const useAdminDeleteUser = () => {
                 );
             }
         },
-        onSettled: () => {
-            queryClient.refetchQueries({ queryKey: ["admin", "users"] });
-        },
     });
 };
 
@@ -43,7 +40,20 @@ export const useAdminSeedData = () => {
         mutationFn: async () => {
             return await userServices.seedData();
         },
-        onSettled: () =>
-            queryClient.refetchQueries({ queryKey: ["admin", "users"] }),
+        onSuccess: async () => {
+            await queryClient.refetchQueries({
+                queryKey: ["admin", "users"],
+            });
+        },
+    });
+};
+
+export const useAdminToUpdate = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: ({ id, role }: { id: string; role: string }) =>
+            adminServices.updateUser(id, { role }),
+        onSuccess: () =>
+            queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
     });
 };

@@ -7,7 +7,7 @@ const adminServices = {
 
         if (repoResult.length === 0)
             return {
-                success: true,
+                success: false,
                 status: 200,
                 message: "No user exist",
                 data: repoResult,

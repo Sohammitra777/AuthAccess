@@ -34,7 +34,7 @@ const adminServices = {
 
     updateUser: async (
         id: string,
-        user?: Partial<User>,
+        user?: Omit<Partial<User>, "id">,
     ): Promise<ApiSuccess | null> => {
         if (!user) return null;
 
