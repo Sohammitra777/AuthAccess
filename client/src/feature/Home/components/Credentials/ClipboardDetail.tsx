@@ -4,7 +4,7 @@ import homeAssets from "../../assets/assets";
 function ClipboardDetail({ role, copy }: { role: string; copy: string }) {
     const [copied, setCopied] = useState(false);
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex justify-between items-center gap-4 text-xl">
             <p>
                 User {role}: {copy}
             </p>

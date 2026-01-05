@@ -20,13 +20,13 @@ function AdminPage() {
                     u.email !== user.email && (
                         <li
                             key={u.id}
-                            className="m-2 flex cursor-pointer justify-between gap-4 rounded-lg p-4 text-[#f4f3ee] duration-75 ease-in-out hover:border"
+                            className="m-2 flex cursor-pointer flex-col gap-4 rounded-lg p-4 text-[#f4f3ee] duration-75 ease-in-out hover:border sm:flex-row sm:justify-between"
                         >
-                            <div className="flex gap-2">
+                            <div className="flex gap-2 font-bold">
                                 <p>{u.email}</p>
                                 {u.role === "admin" && <p>Admin</p>}
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center justify-between gap-4">
                                 <UpdateRole id={u.id} role={u.role} />
                                 <img
                                     onClick={() => {

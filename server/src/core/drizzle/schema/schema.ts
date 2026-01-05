@@ -1,4 +1,4 @@
-import { pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
+import { unique, pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -7,12 +7,16 @@ export const users = pgTable("users", {
     role: text("role").notNull().default("user"),
 });
 
-export const refreshToken = pgTable("refresh_token", {
-    id: uuid("id").defaultRandom().primaryKey(),
-    userId: uuid("user_id")
-        .references(() => users.id, { onDelete: "cascade" })
-        .notNull(),
-    tokenHash: text("token_hash").notNull(),
-    createdAt: timestamp("created_at").defaultNow().notNull(),
-    expiresAt: timestamp("expires_at").notNull(),
-});
+export const refreshToken = pgTable(
+    "refresh_token",
+    {
+        id: uuid("id").defaultRandom().primaryKey(),
+        userId: uuid("user_id")
+            .references(() => users.id, { onDelete: "cascade" })
+            .notNull(),
+        tokenHash: text("token_hash").notNull(),
+        createdAt: timestamp("created_at").defaultNow().notNull(),
+        expiresAt: timestamp("expires_at").notNull(),
+    },
+    (table) => ({ oneTokenPerUser: unique().on(table.userId) })
+);

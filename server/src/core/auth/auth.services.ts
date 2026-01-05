@@ -2,6 +2,9 @@ import authRepo from "./auth.repo";
 import authUtils from "./auth.utils";
 import { ServiceResponse } from "../../shared/shared.type";
 import { Data, Refresh } from "./auth.types";
+import db from "../drizzle/db";
+import { refreshToken } from "../drizzle/schema/schema";
+import { eq } from "drizzle-orm";
 
 const authServices = {
     signup: async (
@@ -61,11 +64,21 @@ const authServices = {
             user.role
         );
 
-        const refreshToken = authUtils.createRefreshToken();
-        const refreshTokenHash = authUtils.hashRefreshToken(refreshToken);
+        const refreshTokenVal = authUtils.createRefreshToken();
+        const refreshTokenHash = authUtils.hashRefreshToken(refreshTokenVal);
         const expiresAt = authUtils.refreshTokenExpiry();
 
-        await authRepo.insertRefreshToken(user.id, refreshTokenHash, expiresAt);
+        await db.transaction(async (tx) => {
+            await tx
+                .delete(refreshToken)
+                .where(eq(refreshToken.userId, user.id));
+
+            await tx.insert(refreshToken).values({
+                userId: user.id,
+                tokenHash: refreshTokenHash,
+                expiresAt,
+            });
+        });
         return {
             success: true,
             status: 200,
@@ -76,7 +89,7 @@ const authServices = {
                 role: user.role,
                 token: {
                     accessToken,
-                    refreshToken,
+                    refreshToken: refreshTokenVal,
                 },
             },
         };
@@ -138,18 +151,22 @@ const authServices = {
         }
 
         //  ROTATION
-        await authRepo.deleteRefreshToken(token.id);
+        const result = await db.transaction(async (tx) => {
+            await tx.delete(refreshToken).where(eq(refreshToken.id, token.id));
 
-        const newRefreshToken = authUtils.createRefreshToken();
-        const newRefreshTokenHash = authUtils.hashRefreshToken(newRefreshToken);
+            const newRefreshToken = authUtils.createRefreshToken();
+            const newRefreshTokenHash =
+                authUtils.hashRefreshToken(newRefreshToken);
 
-        const refreshTokenExpiresAt = authUtils.refreshTokenExpiry();
+            const refreshTokenExpiresAt = authUtils.refreshTokenExpiry();
+            await tx.insert(refreshToken).values({
+                userId: token.userId,
+                tokenHash: newRefreshTokenHash,
+                expiresAt: refreshTokenExpiresAt,
+            });
 
-        await authRepo.insertRefreshToken(
-            token.userId,
-            newRefreshTokenHash,
-            refreshTokenExpiresAt
-        );
+            return { newRefreshToken };
+        });
 
         const user = await authRepo.getUserById(token.userId);
 
@@ -173,7 +190,7 @@ const authServices = {
             message: "Credentials refreshed",
             data: {
                 accessToken,
-                newRefreshToken,
+                newRefreshToken: result.newRefreshToken,
             },
         };
     },

@@ -27,7 +27,9 @@ type ServiceResponseFailure = {
     message: string;
 };
 
-export type ServiceResponse<R> = ServiceResponseSuccess<R> | ServiceResponseFailure;
+export type ServiceResponse<R> =
+    | ServiceResponseSuccess<R>
+    | ServiceResponseFailure;
 
 type UserRepoResponse = {
     id: string;
@@ -42,5 +44,4 @@ type RefreshTokenRepoResponse = {
     tokenHash: string;
     createdAt: Date;
     expiresAt: Date;
-    revokedAt: Date | null;
 };

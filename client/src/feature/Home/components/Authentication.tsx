@@ -2,7 +2,7 @@ import homeAssets from "../assets/assets";
 
 function Authentication() {
     return (
-        <main className="m-2 rounded-xl bg-[#111111] pb-10 text-center text-sm tracking-widest text-[#b1ada1] sm:p-4 md:text-2xl/10 lg:mr-5 lg:ml-5 lg:pr-30 lg:pl-30">
+        <main className="m-2 rounded-xl bg-[#111111] pb-10 text-center tracking-widest text-[#b1ada1] sm:p-4 sm:text-xl/8 md:text-2xl/10 lg:mr-5 lg:ml-5 lg:pr-30 lg:pl-30">
             <h1 className="m-5 text-lg font-bold text-[#f4f3ee] sm:text-2xl md:text-4xl">
                 Authentication
             </h1>

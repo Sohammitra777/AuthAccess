@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import sharedAssets from "../assets/assets";
-import useAuth from "../../core/auth/auth.hook";
-import { useDeleteMutation } from "../shared.mutations";
+import { motion } from "framer-motion";
+import { useDeleteMutation } from "../../../shared.mutations";
+import useAuth from "../../../../core/auth/auth.hook";
+import sharedAssets from "../../../assets/assets";
 
 const PrivateAdminNavbar = () => {
     const [adminPanel, setAdminPanel] = useState(false);
@@ -10,7 +11,7 @@ const PrivateAdminNavbar = () => {
     const { mutate } = useDeleteMutation();
 
     return (
-        <div className="flex font-serif lg:text-xl">
+        <div className="flex font-serif lg:text-3xl">
             <div className="m-2 flex w-full justify-between rounded-lg bg-[#c15f3c] p-4 text-[#f4f3ee]">
                 <Link to="/" className="font-semibold tracking-wide">
                     AuthAccess
@@ -27,34 +28,37 @@ const PrivateAdminNavbar = () => {
             {adminPanel && (
                 <div
                     onClick={() => setAdminPanel(false)}
-                    className="fixed inset-0 cursor-pointer bg-black/40 backdrop-blur-[1px] transition-opacity duration-200"
+                    className="fixed inset-0 cursor-pointer bg-black/40 backdrop-blur-[1px] transition-opacity duration-200 sm:text-2xl"
                 >
-                    <div
+                    <motion.div
+                        initial={{ x: 200, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
                         onClick={(e) => e.stopPropagation()}
-                        className="animate-slide-in fixed top-20 right-3 bottom-3 flex min-w-56 cursor-default flex-col gap-3 rounded-3xl border border-white/25 bg-[#c15f3c] p-4 shadow-2xl shadow-black/40"
+                        className="animate-slide-in fixed top-22 right-3 bottom-3 flex min-w-40 cursor-default flex-col gap-3 rounded-3xl border border-white/25 bg-[#c15f3c] p-4 shadow-2xl shadow-black/40 sm:min-w-50"
                     >
-                        <h3 className="mb-1 text-lg font-semibold tracking-wide">
+                        <h3 className="mb-1 font-semibold tracking-wide">
                             Admin Menu
                         </h3>
 
                         <div className="flex flex-col gap-2">
                             <Link
                                 onClick={() => setAdminPanel(false)}
-                                className="nav-btn"
+                                className="hover:opacity-80"
                                 to="/admin"
                             >
                                 Admin Panel
                             </Link>
                             <Link
                                 onClick={() => setAdminPanel(false)}
-                                className="nav-btn"
+                                className="hover:opacity-80"
                                 to="/admin/users"
                             >
                                 Create User
                             </Link>
                             <Link
                                 onClick={() => setAdminPanel(false)}
-                                className="nav-btn"
+                                className="hover:opacity-80"
                                 to="/admin/admins"
                             >
                                 Create Admin
@@ -63,12 +67,12 @@ const PrivateAdminNavbar = () => {
 
                         <p
                             onClick={logout}
-                            className="nav-btn-danger mt-auto cursor-pointer"
+                            className="nav-btn-danger mt-auto cursor-pointer hover:opacity-80"
                         >
                             Logout
                         </p>
                         <p
-                            className="cursor-pointer"
+                            className="cursor-pointer hover:opacity-80"
                             onClick={() => {
                                 mutate(user.id);
                                 logout();
@@ -76,7 +80,7 @@ const PrivateAdminNavbar = () => {
                         >
                             Delete Account
                         </p>
-                    </div>
+                    </motion.div>
                 </div>
             )}
         </div>

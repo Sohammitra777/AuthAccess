@@ -1,6 +1,6 @@
-import PrivateUserNavbar from "./PrivateUserNavbar";
-import PrivateAdminNavbar from "./PrivateAdminNavbar";
-import useAuth from "../../core/auth/auth.hook";
+import useAuth from "../../../core/auth/auth.hook";
+import PrivateAdminNavbar from "./privateNavbarComponent/PrivateAdminNavbar";
+import PrivateUserNavbar from "./privateNavbarComponent/PrivateUserNavbar";
 
 function PrivateNavbar() {
     const { user } = useAuth();

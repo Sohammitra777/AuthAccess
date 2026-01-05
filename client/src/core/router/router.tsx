@@ -1,8 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import routes, { authRoutes } from "../core";
-import PrivateNavbar from "../../shared/components/PrivateNavbar";
-import CreateUserPage from "../../feature/admin/pages/CreateUsersPage";
-import CreateAdminPage from "../../feature/admin/pages/CreateAdminPage";
 
 const router = createBrowserRouter([
     {
@@ -30,7 +27,7 @@ const router = createBrowserRouter([
                 element: <authRoutes.ProtectedRoute />,
                 children: [
                     {
-                        element: <PrivateNavbar />,
+                        element: <routes.PrivateNavbar />,
                     },
                     {
                         path: "/dashboard",
@@ -45,11 +42,11 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: "/admin/users",
-                                element: <CreateUserPage />,
+                                element: <routes.CreateUserPage />,
                             },
                             {
                                 path: "/admin/admins",
-                                element: <CreateAdminPage />,
+                                element: <routes.CreateAdminPage />,
                             },
                         ],
                     },

@@ -1,0 +1,1 @@
+ALTER TABLE "refresh_token" ADD CONSTRAINT "refresh_token_user_id_unique" UNIQUE("user_id");

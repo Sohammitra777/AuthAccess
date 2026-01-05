@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useContextAuth } from "./core/auth/auth.hook";
-import PublicNavbar from "./shared/components/PublicNavbar";
-import PrivateNavbar from "./shared/components/PrivateNavbar";
+import PublicNavbar from "./shared/components/navbar/PublicNavbar";
+import PrivateNavbar from "./shared/components/navbar/PrivateNavbar";
 
 function App() {
     const { user } = useContextAuth();

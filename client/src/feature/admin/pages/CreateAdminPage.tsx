@@ -16,7 +16,7 @@ function CreateAdminPage() {
     return (
         <div className="flex h-full flex-col items-center justify-center font-serif text-[#EDEADE]">
             <h1 className="mb-4 text-lg sm:text-3xl">
-                AuthAccess User Registration
+                AuthAccess Admin Creation
             </h1>
             <form
                 className="flex flex-col rounded-2xl border border-[#b1ada1] p-4 text-center sm:min-w-lg sm:p-6 sm:text-xl"
@@ -58,8 +58,10 @@ function CreateAdminPage() {
                 {isError && <p className="m-2 p-2">Admin Already Registered</p>}
             </form>
             <p className="m-2 p-2">
-                Want to Register User?,
-                <Link to="/admin/users">Register User</Link>
+                Want to Create User?,
+                <Link className="pl-2" to="/admin/users">
+                    Create User
+                </Link>
             </p>
         </div>
     );

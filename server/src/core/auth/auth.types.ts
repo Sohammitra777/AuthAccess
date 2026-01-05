@@ -1,3 +1,7 @@
+import { NodePgDatabase } from "drizzle-orm/node-postgres";
+import db from "../drizzle/db";
+import { PgTransaction } from "drizzle-orm/pg-core";
+
 export type Role = "user" | "admin";
 
 export type Data = {
@@ -27,3 +31,7 @@ export type AuthSuccessResponse = {
         role: string;
     };
 };
+
+export type dbOrTx = 
+  | NodePgDatabase<any>
+  | PgTransaction<any, any, any>;
