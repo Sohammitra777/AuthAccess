@@ -5,7 +5,10 @@ const UpdateRole = ({ id, role }: { id: string; role: string }) => {
     const { mutate, isPending } = useAdminToUpdate();
 
     return (
-        <p onClick={() => !isPending && mutate({ id, role: nextRole })}>
+        <p
+            className="duration-300 hover:opacity-80"
+            onClick={() => !isPending && mutate({ id, role: nextRole })}
+        >
             {isPending
                 ? role === "user"
                     ? "Upgrading to Admin"
