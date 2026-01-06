@@ -2,13 +2,12 @@ export type User = {
     id: string;
     email: string;
     role: string;
-
 };
 
 export type ApiSuccess = {
     success: true;
     message: string;
-    user: User
+    user: User;
 };
 
 export type AuthContextType = {
@@ -31,5 +30,5 @@ export type ApiError = {
 
 export type Response = {
     message: string;
-    user: User
+    user: User;
 };

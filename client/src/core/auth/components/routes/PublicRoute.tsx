@@ -6,7 +6,7 @@ function PublicRoute() {
     const { user, loading } = useContextAuth();
 
     if (loading) return <LoadingPage />;
-    
+
     if (user) return <Navigate to="/dashboard" replace />;
 
     return <Outlet />;

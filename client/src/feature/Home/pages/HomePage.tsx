@@ -5,7 +5,7 @@ import Welcome from "../components/Welcome";
 
 function HomePage() {
     return (
-        <section className="flex flex-col font-mono text-[#f4f3ee]">
+        <section className="flex grow flex-col font-mono text-[#f4f3ee]">
             <Welcome />
             <Authentication />
             <Authorization />

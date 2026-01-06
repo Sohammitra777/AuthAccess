@@ -2,9 +2,7 @@ import authRepo from "./auth.repo";
 import authUtils from "./auth.utils";
 import { ServiceResponse } from "../../shared/shared.type";
 import { Data, Refresh } from "./auth.types";
-import db from "../drizzle/db";
-import { refreshToken } from "../drizzle/schema/schema";
-import { eq } from "drizzle-orm";
+import authRepoTransaction from "./auth.repo.transaction";
 
 const authServices = {
     signup: async (
@@ -68,17 +66,11 @@ const authServices = {
         const refreshTokenHash = authUtils.hashRefreshToken(refreshTokenVal);
         const expiresAt = authUtils.refreshTokenExpiry();
 
-        await db.transaction(async (tx) => {
-            await tx
-                .delete(refreshToken)
-                .where(eq(refreshToken.userId, user.id));
-
-            await tx.insert(refreshToken).values({
-                userId: user.id,
-                tokenHash: refreshTokenHash,
-                expiresAt,
-            });
-        });
+        await authRepoTransaction.replaceUserRefreshTokenForLogin(
+            refreshTokenHash,
+            user.id,
+            expiresAt
+        );
         return {
             success: true,
             status: 200,
@@ -122,7 +114,7 @@ const authServices = {
 
     logout: async (refreshToken: string): Promise<void> => {
         const tokenHash = authUtils.hashRefreshToken(refreshToken);
-        await authRepo.deleteRefreshToken(tokenHash);
+        await authRepo.deleteRefreshTokenByHash(tokenHash);
     },
 
     refresh: async (
@@ -142,7 +134,7 @@ const authServices = {
         }
 
         if (token.expiresAt < new Date()) {
-            await authRepo.deleteRefreshToken(token.id);
+            await authRepo.deleteRefreshTokenByHash(token.id);
             return {
                 success: false,
                 status: 401,
@@ -151,23 +143,7 @@ const authServices = {
         }
 
         //  ROTATION
-        const result = await db.transaction(async (tx) => {
-            await tx.delete(refreshToken).where(eq(refreshToken.id, token.id));
-
-            const newRefreshToken = authUtils.createRefreshToken();
-            const newRefreshTokenHash =
-                authUtils.hashRefreshToken(newRefreshToken);
-
-            const refreshTokenExpiresAt = authUtils.refreshTokenExpiry();
-            await tx.insert(refreshToken).values({
-                userId: token.userId,
-                tokenHash: newRefreshTokenHash,
-                expiresAt: refreshTokenExpiresAt,
-            });
-
-            return { newRefreshToken };
-        });
-
+        const result = await authRepoTransaction.rotateRefreshToken(token);
         const user = await authRepo.getUserById(token.userId);
 
         if (!user) {

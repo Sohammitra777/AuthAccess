@@ -7,7 +7,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data, isFetching } = useMeQuery();
     const loginMutation = useLoginMutation();
     const logoutMutation = useLogoutMutation();
-    
+
     const authValue = {
         user: data ?? null,
         loading: isFetching,

@@ -14,7 +14,7 @@ function AdminPage() {
     if (isPending) return <LoadingPage />;
     if (!data || data.length === 1) return <EmptyList />;
     return (
-        <ul>
+        <ul className="grow">
             {data.map(
                 (u) =>
                     u.email !== user.email && (

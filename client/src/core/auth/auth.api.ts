@@ -5,7 +5,6 @@ import type { ApiError } from "./auth.types";
 export const authApi = axios.create(axiosConfig.extendedClientConfig("/auth"));
 export const baseApi = axios.create(axiosConfig.extendedClientConfig("/auth"));
 
-
 let refreshPromise: Promise<void> | null = null;
 
 authApi.interceptors.response.use(

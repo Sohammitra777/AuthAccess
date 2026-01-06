@@ -15,12 +15,12 @@ function CreateUserPage() {
     });
 
     return (
-        <div className="flex h-full flex-col items-center justify-center font-serif text-[#EDEADE]">
-            <h1 className="mb-4 text-lg sm:text-3xl">
+        <div className="flex h-full grow flex-col items-center justify-center font-serif text-[#EDEADE]">
+            <h1 className="mb-4 text-xl sm:text-3xl">
                 AuthAccess User Creation
             </h1>
             <form
-                className="flex flex-col rounded-2xl border border-[#b1ada1] p-4 text-center sm:min-w-lg sm:p-6 sm:text-xl"
+                className="flex min-w-70 flex-col gap-4 rounded-2xl border border-[#b1ada1] p-4 text-center text-sm sm:min-w-lg sm:p-6 sm:text-xl"
                 onSubmit={(e) => {
                     e.preventDefault();
                     const user = {
@@ -32,7 +32,7 @@ function CreateUserPage() {
                 }}
             >
                 <input
-                    className="m-4 rounded-lg border p-2 italic"
+                    className="rounded-lg border p-1 pl-2 italic sm:m-2 sm:p-2"
                     type="text"
                     placeholder="Enter your Email"
                     value={userEmail}
@@ -40,7 +40,7 @@ function CreateUserPage() {
                 />
 
                 <input
-                    className="m-4 rounded-lg border p-2 italic"
+                    className="rounded-lg border p-1 pl-2 italic sm:m-2 sm:p-2"
                     type="password"
                     placeholder="Enter your Password"
                     value={userPassword}
@@ -48,7 +48,7 @@ function CreateUserPage() {
                 />
 
                 <button
-                    className="m-4 mb-0 cursor-pointer rounded-lg bg-[#E5E5E5] p-1 font-mono font-bold text-black duration-150 ease-in hover:bg-zinc-300"
+                    className="mb-0 cursor-pointer rounded-lg bg-[#E5E5E5] p-1 font-mono font-bold text-black duration-150 ease-in hover:bg-zinc-300 sm:m-4"
                     type="submit"
                 >
                     {isPending ? "Getting Registered" : "Register"}
@@ -60,7 +60,9 @@ function CreateUserPage() {
             </form>
             <p className="m-2 p-2">
                 Want to Create Admin?,
-                <Link className="pl-2" to="/admin/admins">Create Admin</Link>
+                <Link className="pl-2" to="/admin/admins">
+                    Create Admin
+                </Link>
             </p>
         </div>
     );

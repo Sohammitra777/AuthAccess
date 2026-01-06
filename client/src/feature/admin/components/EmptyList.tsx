@@ -4,7 +4,7 @@ import adminAssets from "../assets/assets";
 function EmptyList() {
     const { mutateAsync, isPending } = useAdminSeedData();
     return (
-        <div className="flex h-full flex-col items-center justify-center">
+        <div className="flex h-full grow flex-col items-center justify-center">
             <img
                 className="h-30 w-30"
                 src={adminAssets.icon.emptyIcon}

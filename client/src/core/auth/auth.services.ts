@@ -1,7 +1,5 @@
 import { authApi } from "./auth.api";
-import type { ApiSuccess} from "./auth.types";
-
-
+import type { ApiSuccess } from "./auth.types";
 
 const authServices = {
     signup: async (email: string, password: string): Promise<ApiSuccess> => {

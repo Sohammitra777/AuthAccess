@@ -6,7 +6,7 @@ function DashboardPage() {
     const { user } = useAuth();
 
     return (
-        <main className="text-mono m-4 flex h-full flex-col items-center text-[#f4f3ee] grow">
+        <main className="text-mono m-4 flex h-full grow flex-col items-center text-[#f4f3ee]">
             {user.role === "admin" ? (
                 <WelcomeAdminDashboard />
             ) : (

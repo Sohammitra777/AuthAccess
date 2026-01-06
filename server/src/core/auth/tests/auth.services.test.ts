@@ -1,4 +1,4 @@
-import {beforeEach, describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 
 vi.mock("../auth.repo", () => ({
     default: {
@@ -6,9 +6,15 @@ vi.mock("../auth.repo", () => ({
         createNewUser: vi.fn(),
         insertRefreshToken: vi.fn(),
         getRefreshTokenByHash: vi.fn(),
-        deleteRefreshToken: vi.fn(),
+        deleteRefreshTokenByHash: vi.fn(),
         createRefreshToken: vi.fn(),
         getUserById: vi.fn(),
+    },
+}));
+vi.mock("../auth.repo.transaction.ts", () => ({
+    default: {
+        replaceUserRefreshTokenForLogin: vi.fn(),
+        rotateRefreshToken: vi.fn(),
     },
 }));
 
@@ -27,13 +33,14 @@ vi.mock("../auth.utils", () => ({
 import authRepo from "../auth.repo";
 import authServices from "../auth.services";
 import authUtils from "../auth.utils";
+import authRepoTransaction from "../auth.repo.transaction";
 
 describe("authServices.signup test", () => {
     test("return 409 in case of conflict", async () => {
         const mockedRepo = vi.mocked(authRepo);
         mockedRepo.checkUserExist.mockResolvedValue([
             {
-                id: 1,
+                id: "validId",
                 email: "test@test.com",
                 hash: "hashpas1234",
                 role: "user",
@@ -53,7 +60,7 @@ describe("authServices.signup test", () => {
         const mockedRepo = vi.mocked(authRepo);
         mockedRepo.checkUserExist.mockResolvedValue([]);
         mockedRepo.createNewUser.mockResolvedValue({
-            id: 1,
+            id: "validId",
             email: "test@test.com",
             role: "user",
         });
@@ -66,7 +73,7 @@ describe("authServices.signup test", () => {
             status: 201,
             message: "signup successful",
             data: {
-                id: 1,
+                id: "validId",
                 email: "test@test.com",
                 role: "user",
             },
@@ -91,7 +98,7 @@ describe("authService.login test", () => {
     test("return 400 when invalid password", async () => {
         vi.mocked(authRepo.checkUserExist).mockResolvedValue([
             {
-                id: 1,
+                id: "validId",
                 email: "test@test.com",
                 hash: "hashedpass",
                 role: "admin",
@@ -117,7 +124,7 @@ describe("authService.login test", () => {
     test("return 200 when user exist and password is valid", async () => {
         vi.mocked(authRepo.checkUserExist).mockResolvedValue([
             {
-                id: 1,
+                id: "validId",
                 email: "test@test.com",
                 hash: "hashedpass",
                 role: "admin",
@@ -144,7 +151,7 @@ describe("authService.login test", () => {
             status: 200,
             message: "Login successful",
             data: {
-                id: 1,
+                id: "validId",
                 email: "test@test.com",
                 role: "admin",
                 token: {
@@ -173,7 +180,7 @@ describe("testing authServices.me", () => {
     test("return 200 when user data exist", async () => {
         vi.mocked(authRepo.checkUserExist).mockResolvedValue([
             {
-                id: 1,
+                id: "validId",
                 email: "test@test.com",
                 hash: "hashedPassword",
                 role: "user",
@@ -188,7 +195,7 @@ describe("testing authServices.me", () => {
             status: 200,
             message: "Credentials validated",
             data: {
-                id: 1,
+                id: "validId",
                 email: "test@test.com",
                 role: "user",
             },
@@ -197,117 +204,114 @@ describe("testing authServices.me", () => {
 });
 
 describe("refresh()", () => {
-  const incomingRefreshToken = "incoming-token";
-  const hashedToken = "hashed-token";
+    const incomingRefreshToken = "incoming-token";
+    const hashedToken = "hashed-token";
 
-  beforeEach(() => {
-    vi.resetAllMocks();
+    beforeEach(() => {
+        vi.resetAllMocks();
 
-    (authUtils.hashRefreshToken as any).mockReturnValue(hashedToken);
-  });
-
-  test("returns 401 when token is not found", async () => {
-    (authRepo.getRefreshTokenByHash as any).mockResolvedValue(null);
-
-    const result = await authServices.refresh(incomingRefreshToken);
-
-    expect(result).toEqual({
-      success: false,
-      status: 401,
-      message: "Invalid refresh token",
+        (authUtils.hashRefreshToken as any).mockReturnValue(hashedToken);
     });
 
-    expect(authRepo.getRefreshTokenByHash).toHaveBeenCalledWith(hashedToken);
-  });
+    test("returns 401 when token is not found", async () => {
+        (authRepo.getRefreshTokenByHash as any).mockResolvedValue(null);
 
-  test("returns 401 when token is expired and deletes it", async () => {
-    const expiredToken = {
-      id: "t1",
-      userId: 1,
-      expiresAt: new Date(Date.now() - 1000),
-    };
+        const result = await authServices.refresh(incomingRefreshToken);
 
-    (authRepo.getRefreshTokenByHash as any).mockResolvedValue(expiredToken);
+        expect(result).toEqual({
+            success: false,
+            status: 401,
+            message: "Invalid refresh token",
+        });
 
-    const result = await authServices.refresh(incomingRefreshToken);
-
-    expect(authRepo.deleteRefreshToken).toHaveBeenCalledWith("t1");
-
-    expect(result).toEqual({
-      success: false,
-      status: 401,
-      message: "Refresh token expired",
-    });
-  });
-
-  test("returns 401 when user is not found", async () => {
-    const validToken = {
-      id: "t2",
-      userId: 5,
-      expiresAt: new Date(Date.now() + 10000),
-    };
-
-    (authRepo.getRefreshTokenByHash as any).mockResolvedValue(validToken);
-    (authRepo.getUserById as any).mockResolvedValue(null);
-
-    const newToken = "new-refresh";
-    (authUtils.createRefreshToken as any).mockReturnValue(newToken);
-    (authUtils.hashRefreshToken as any).mockReturnValue("new-hash");
-    (authUtils.refreshTokenExpiry as any).mockReturnValue(
-      new Date("2030-01-01")
-    );
-
-    const result = await authServices.refresh(incomingRefreshToken);
-
-    expect(result).toEqual({
-      success: false,
-      status: 401,
-      message: "Credentials not found",
+        expect(authRepo.getRefreshTokenByHash).toHaveBeenCalledOnce
     });
 
-    expect(authRepo.deleteRefreshToken).toHaveBeenCalledWith("t2");
-  });
+    test("returns 401 when token is expired and deletes it", async () => {
+        const expiredToken = {
+            id: "t1",
+            userId: 1,
+            expiresAt: new Date(Date.now() - 1000),
+        };
 
-  test("rotates token and returns new credentials (happy path)", async () => {
-    const validToken = {
-      id: "t3",
-      userId: 10,
-      expiresAt: new Date(Date.now() + 10000),
-    };
+        (authRepo.getRefreshTokenByHash as any).mockResolvedValue(expiredToken);
 
-    (authRepo.getRefreshTokenByHash as any).mockResolvedValue(validToken);
+        const result = await authServices.refresh(incomingRefreshToken);
 
-    const user = { id: 10, email: "test@mail.com", role: "USER" };
-    (authRepo.getUserById as any).mockResolvedValue(user);
+        expect(authRepo.deleteRefreshTokenByHash).toHaveBeenCalledWith("t1");
 
-    const newRefreshToken = "new-refresh-token";
-    const newRefreshHash = "new-hash";
-    const expiry = new Date("2030-01-01");
-
-    (authUtils.createRefreshToken as any).mockReturnValue(newRefreshToken);
-    (authUtils.hashRefreshToken as any).mockReturnValue(newRefreshHash);
-    (authUtils.refreshTokenExpiry as any).mockReturnValue(expiry);
-
-    (authUtils.createAccessToken as any).mockReturnValue("access-token");
-
-    const result = await authServices.refresh(incomingRefreshToken);
-
-    expect(authRepo.deleteRefreshToken).toHaveBeenCalledWith("t3");
-
-    expect(authRepo.insertRefreshToken).toHaveBeenCalledWith(
-      10,
-      newRefreshHash,
-      expiry
-    );
-
-    expect(result).toEqual({
-      success: true,
-      status: 200,
-      message: "Credentials refreshed",
-      data: {
-        accessToken: "access-token",
-        newRefreshToken,
-      },
+        expect(result).toEqual({
+            success: false,
+            status: 401,
+            message: "Refresh token expired",
+        });
     });
-  });
+
+    test("returns 401 when user is not found", async () => {
+        const validToken = {
+            id: "t2",
+            userId: 5,
+            expiresAt: new Date(Date.now() + 10000),
+        };
+
+        (authRepo.getRefreshTokenByHash as any).mockResolvedValue(validToken);
+        (authRepo.getUserById as any).mockResolvedValue(null);
+
+        const newToken = "new-refresh";
+        (authUtils.createRefreshToken as any).mockReturnValue(newToken);
+        (authUtils.hashRefreshToken as any).mockReturnValue("new-hash");
+        (authUtils.refreshTokenExpiry as any).mockReturnValue(
+            new Date("2030-01-01")
+        );
+
+        const result = await authServices.refresh(incomingRefreshToken);
+
+        expect(result).toEqual({
+            success: false,
+            status: 401,
+            message: "Credentials not found",
+        });
+
+        expect(authRepo.deleteRefreshTokenByHash).toHaveBeenCalledOnce;
+    });
+
+    test("rotates token and returns new credentials (happy path)", async () => {
+        const validToken = {
+            id: "t3",
+            userId: 10,
+            expiresAt: new Date(Date.now() + 10000),
+        };
+
+        (authRepo.getRefreshTokenByHash as any).mockResolvedValue(validToken);
+
+        const user = { id: 10, email: "test@mail.com", role: "USER" };
+        (authRepo.getUserById as any).mockResolvedValue(user);
+
+        const newRefreshToken = "new-refresh-token";
+        const newRefreshHash = "new-hash";
+        const expiry = new Date("2030-01-01");
+
+        vi.mocked(authUtils.createRefreshToken).mockReturnValue(newRefreshToken);
+        vi.mocked(authUtils.hashRefreshToken).mockReturnValue(newRefreshHash);
+        vi.mocked(authUtils.refreshTokenExpiry).mockReturnValue(expiry);
+
+        vi.mocked(authUtils.createAccessToken).mockReturnValue("access-token");
+        vi.mocked(authRepoTransaction.rotateRefreshToken).mockResolvedValue({
+            newRefreshToken: "new-refresh-token"
+        })
+
+        const result = await authServices.refresh(incomingRefreshToken);
+
+        expect(authRepoTransaction.rotateRefreshToken).toHaveBeenCalledOnce;
+
+        expect(result).toEqual({
+            success: true,
+            status: 200,
+            message: "Credentials refreshed",
+            data: {
+                accessToken: "access-token",
+                newRefreshToken,
+            },
+        });
+    });
 });

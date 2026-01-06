@@ -37,6 +37,16 @@ const authRepo = {
         return result[0];
     },
 
+    getRefreshTokenByHash: async (
+        hash: string
+    ): Promise<RefreshTokenRepoResponse> => {
+        const result = await db
+            .select()
+            .from(refreshToken)
+            .where(eq(refreshToken.tokenHash, hash));
+        return result[0];
+    },
+
     insertRefreshToken: async (
         userId: string,
         tokenHash: string,
@@ -49,17 +59,7 @@ const authRepo = {
         });
     },
 
-    getRefreshTokenByHash: async (
-        hash: string
-    ): Promise<RefreshTokenRepoResponse> => {
-        const result = await db
-            .select()
-            .from(refreshToken)
-            .where(eq(refreshToken.tokenHash, hash));
-        return result[0];
-    },
-
-    deleteRefreshToken: async (token: string): Promise<void> => {
+    deleteRefreshTokenByHash: async (token: string): Promise<void> => {
         await db.delete(refreshToken).where(eq(refreshToken.tokenHash, token));
     },
 };

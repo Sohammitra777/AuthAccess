@@ -15,17 +15,18 @@ function LoginPage() {
     });
 
     return (
-        <div className="flex h-full flex-col items-center justify-center font-serif text-[#EDEADE]">
+        <div className="flex h-full grow flex-col items-center justify-center font-serif text-[#EDEADE]">
             <h1 className="mb-4 text-3xl">AuthAccess Login</h1>
+
             <form
-                className="flex flex-col rounded-2xl border border-[#b1ada1] p-4 text-center sm:min-w-lg sm:p-6 sm:text-xl"
+                className="flex min-w-70 flex-col gap-4 rounded-2xl border border-[#b1ada1] p-4 text-center text-sm sm:min-w-lg sm:p-6 sm:text-xl"
                 onSubmit={(e) => {
                     e.preventDefault();
                     mutate();
                 }}
             >
                 <input
-                    className="m-4 rounded-lg border p-2 italic"
+                    className="rounded-lg border p-1 pl-2 italic sm:m-2 sm:p-2"
                     type="text"
                     placeholder="Enter your Email"
                     value={userEmail}
@@ -33,7 +34,7 @@ function LoginPage() {
                 />
 
                 <input
-                    className="m-4 rounded-lg border p-2 italic"
+                    className="rounded-lg border p-1 pl-2 italic sm:m-2 sm:p-2"
                     type="password"
                     placeholder="Enter your Password"
                     value={userPassword}
@@ -41,13 +42,14 @@ function LoginPage() {
                 />
 
                 <button
-                    className="m-4 mb-0 cursor-pointer rounded-lg bg-[#E5E5E5] p-1 font-mono font-bold text-black duration-150 ease-in hover:bg-zinc-300"
+                    className="mb-0 cursor-pointer rounded-lg bg-[#E5E5E5] p-1 font-mono font-bold text-black duration-150 ease-in hover:bg-zinc-300 sm:m-4"
                     type="submit"
                 >
                     {isPending ? "Logging in..." : "Login"}
                 </button>
                 {error && <p className="m-4 mb-0">Invalid Credentials</p>}
             </form>
+
             <p className="m-4 text-lg">
                 Not Signed up yet,{" "}
                 <button
