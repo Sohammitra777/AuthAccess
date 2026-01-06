@@ -6,7 +6,8 @@
         "outDir": "./dist",
         "esModuleInterop": true,
         "strict": true,
-        "types": ["node"]
+        "types": ["node"],
+        "skipLibCheck": true
     },
     "exclude": ["drizzle.config.ts", "vitest.config.ts"]
 }

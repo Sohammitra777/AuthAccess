@@ -50,7 +50,7 @@ It includes secure cookie-based token flows, backend-only authorization control,
 
 ## 🧱 Monorepo & Feature-Based Architecture (first-level only)
 
----
+```
 authAccess/
 ├─ client/
 │  ├─ src/
@@ -66,7 +66,7 @@ authAccess/
 │  │  ├─ shared/      # shared helpers & types
 │  │  └─ server.ts
 
----
+```
 
 
 > The project follows a **feature-based architectural structure**, where functionality is grouped by feature rather than technical layer — improving modularity, scalability, and maintainability.
