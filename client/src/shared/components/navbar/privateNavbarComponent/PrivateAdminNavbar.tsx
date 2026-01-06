@@ -11,14 +11,14 @@ const PrivateAdminNavbar = () => {
     const { mutate } = useDeleteMutation();
 
     return (
-        <div className="flex font-serif lg:text-3xl">
-            <div className="m-2 flex w-full justify-between rounded-lg bg-[#c15f3c] p-4 text-[#f4f3ee]">
-                <Link to="/" className="font-semibold tracking-wide">
+        <div className="flex font-serif lg:text-2xl">
+            <div className="m-2 flex w-full items-center justify-between rounded-lg bg-[#c15f3c] p-2 text-[#f4f3ee] sm:pr-4 sm:pl-4">
+                <Link to="/" className="tracking-wide">
                     AuthAccess
                 </Link>
 
                 <img
-                    className="h-7 w-7 cursor-pointer transition hover:opacity-80 active:scale-95"
+                    className="h-4 w-4 cursor-pointer transition hover:opacity-80 active:scale-95 sm:h-6 sm:w-6"
                     onClick={() => setAdminPanel(true)}
                     src={sharedAssets.icons.hamburger}
                     alt="Open admin panel"
@@ -28,14 +28,14 @@ const PrivateAdminNavbar = () => {
             {adminPanel && (
                 <div
                     onClick={() => setAdminPanel(false)}
-                    className="fixed inset-0 cursor-pointer bg-black/40 backdrop-blur-[1px] transition-opacity duration-200 sm:text-2xl"
+                    className="fixed inset-0 cursor-pointer bg-black/40 backdrop-blur-[1px] transition-opacity duration-200 sm:text-xl"
                 >
                     <motion.div
                         initial={{ x: 200, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
                         onClick={(e) => e.stopPropagation()}
-                        className="animate-slide-in fixed top-22 right-3 bottom-3 flex min-w-40 cursor-default flex-col gap-3 rounded-3xl border border-white/25 bg-[#c15f3c] p-4 shadow-2xl shadow-black/40 sm:min-w-50"
+                        className="animate-slide-in fixed top-18 right-3 bottom-3 flex min-w-40 cursor-default flex-col gap-3 rounded-3xl border border-white/25 bg-[#c15f3c] p-4 shadow-2xl shadow-black/40 sm:min-w-50"
                     >
                         <h3 className="mb-1 font-semibold tracking-wide">
                             Admin Menu

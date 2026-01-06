@@ -1,5 +1,4 @@
 import useAuth from "../../../core/auth/auth.hook";
-import DashboardLinks from "../components/dashboardLinkComponents/DashboardLinks";
 import WelcomeUserDashboard from "../components/WelcomeUserDashboard";
 import WelcomeAdminDashboard from "../components/WelcomeAdminDashboard";
 
@@ -13,7 +12,6 @@ function DashboardPage() {
             ) : (
                 <WelcomeUserDashboard />
             )}
-            <DashboardLinks />
         </main>
     );
 }

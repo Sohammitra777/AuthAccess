@@ -7,11 +7,11 @@ function Credentials() {
     const [realTime, setRealTime] = useState(false);
 
     return (
-        <div className="m-4 rounded-xl bg-[#111111] p-6 text-center tracking-widest text-[#b1ada1] sm:pr-20 sm:pl-20 sm:text-xl/8 md:pr-30 md:pl-30 md:text-2xl/10">
-            <h1 className="m-3 text-lg font-bold tracking-widest text-[#f4f3ee] sm:text-3xl">
+        <div className="m-4 rounded-xl bg-[#111111] p-2 text-center text-[#b1ada1]">
+            <h1 className="mb-2 text-lg font-bold tracking-widest text-[#f4f3ee] sm:text-3xl">
                 Credentials
             </h1>
-            <p>
+            <p className="text-sm/6 text-[#b1ada1] sm:text-lg/8 lg:text-xl/10">
                 Sample Admin and User credentials are provided so you can switch
                 roles and experience both perspectives seamlessly.
             </p>
