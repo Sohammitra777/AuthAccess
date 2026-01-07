@@ -1,10 +1,10 @@
 import { useState } from "react";
-import homeAssets from "../../assets/assets";
+import assets from "../../../../assets/assets";
 
 function ClipboardDetail({ role, copy }: { role: string; copy: string }) {
     const [copied, setCopied] = useState(false);
     return (
-        <div className="flex justify-between items-center sm:gap-6">
+        <div className="flex items-center justify-between sm:gap-6">
             <p>
                 User {role}: {copy}
             </p>
@@ -17,9 +17,9 @@ function ClipboardDetail({ role, copy }: { role: string; copy: string }) {
                 }}
             >
                 {copied ? (
-                    <img src={homeAssets.icon.copyDone} />
+                    <img src={assets.home.icon.copyDone} />
                 ) : (
-                    <img src={homeAssets.icon.clipboard} />
+                    <img src={assets.home.icon.clipboard} />
                 )}
             </div>
         </div>

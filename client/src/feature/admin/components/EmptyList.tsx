@@ -1,5 +1,5 @@
+import assets from "../../../assets/assets";
 import { useAdminSeedData } from "../admin.mutations";
-import adminAssets from "../assets/assets";
 
 function EmptyList() {
     const { mutateAsync, isPending } = useAdminSeedData();
@@ -7,7 +7,7 @@ function EmptyList() {
         <div className="flex h-full grow flex-col items-center justify-center">
             <img
                 className="h-30 w-30"
-                src={adminAssets.icon.emptyIcon}
+                src={assets.admin.icon.emptyIcon}
                 alt="empty basked icon"
             />
             <p>No data, No Worries</p>

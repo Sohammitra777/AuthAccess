@@ -1,4 +1,4 @@
-import homeAssets from "../assets/assets";
+import assets from "../../../assets/assets";
 
 function Authorization() {
     return (
@@ -9,7 +9,7 @@ function Authorization() {
             <div className="flex items-center gap-10">
                 <img
                     className="hidden h-20 w-20 lg:block"
-                    src={homeAssets.icon.authorization}
+                    src={assets.home.icon.authorization}
                     alt="authorization image"
                 />
                 <p className="text-sm/6 text-[#b1ada1] sm:text-lg/8 lg:text-lg/10">

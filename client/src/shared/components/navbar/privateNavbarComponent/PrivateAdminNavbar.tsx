@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useDeleteMutation } from "../../../shared.mutations";
 import useAuth from "../../../../core/auth/auth.hook";
-import sharedAssets from "../../../assets/assets";
+import assets from "../../../../assets/assets";
 
 const PrivateAdminNavbar = () => {
     const [adminPanel, setAdminPanel] = useState(false);
@@ -20,7 +20,7 @@ const PrivateAdminNavbar = () => {
                 <img
                     className="h-4 w-4 cursor-pointer transition hover:opacity-80 active:scale-95 sm:h-5 sm:w-5"
                     onClick={() => setAdminPanel(true)}
-                    src={sharedAssets.icons.hamburger}
+                    src={assets.icons.hamburgerIcon}
                     alt="Open admin panel"
                 />
             </div>
@@ -35,7 +35,7 @@ const PrivateAdminNavbar = () => {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
                         onClick={(e) => e.stopPropagation()}
-                        className="fixed top-18 right-3 bottom-3 flex min-w-40 cursor-default flex-col gap-3 rounded-2xl border border-white/25 bg-[#c15f3c] p-4 shadow-2xl shadow-black/40 sm:min-w-50 text-lg"
+                        className="fixed top-18 right-3 bottom-3 flex min-w-40 cursor-default flex-col gap-3 rounded-2xl border border-white/25 bg-[#c15f3c] p-4 text-lg shadow-2xl shadow-black/40 sm:min-w-50"
                     >
                         <h3 className="mb-1 font-semibold tracking-wide">
                             Admin Menu

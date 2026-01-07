@@ -1,4 +1,4 @@
-import homeAssets from "../assets/assets";
+import assets from "../../../assets/assets";
 
 function Authentication() {
     return (
@@ -15,7 +15,7 @@ function Authentication() {
                 </p>
                 <img
                     className="hidden h-25 w-25 lg:block"
-                    src={homeAssets.icon.authentication}
+                    src={assets.home.icon.authentication}
                     alt="authentication image"
                 />
             </div>
@@ -23,7 +23,7 @@ function Authentication() {
                 Flow Diagram
             </p>
             <div className="m-2 flex flex-wrap justify-evenly gap-2 text-sm md:justify-between md:text-lg">
-                {homeAssets.image.map((img) => (
+                {assets.home.image.map((img) => (
                     <a
                         key={img[0]}
                         className="xl:text-md rounded-lg border border-[#c15f3c] p-1 text-sm tracking-wide text-[#f4f3ee] duration-150 ease-in-out hover:border-[#b1ada1] hover:text-[#c15f3c] sm:border-2 sm:px-2"

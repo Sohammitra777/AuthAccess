@@ -3,7 +3,7 @@ import DeleteAccount from "./editAccount/DeleteAccount";
 import UpdateEmail from "./editAccount/UpdateEmail";
 import UpdateRole from "./editAccount/UpdateRole";
 import { motion } from "framer-motion";
-import adminAssets from "../assets/assets";
+import assets from "../../../assets/assets";
 
 const EditAccount = ({
     id,
@@ -17,7 +17,7 @@ const EditAccount = ({
     const [edit, setEdit] = useState(false);
     return (
         <li className="m-4 mb-0 flex cursor-pointer flex-col gap-4 rounded-lg border-2 border-[#2A2A2A] bg-[#0F0F0F] p-4 text-[#E5E5E5] duration-75 ease-in-out hover:border-4">
-            <div className="flex grow justify-between gap-2 font-bold opacity-90 sm:text-md">
+            <div className="sm:text-md flex grow justify-between gap-2 font-bold opacity-90">
                 <div className="flex gap-4">
                     {" "}
                     <p>{email}</p>
@@ -25,8 +25,8 @@ const EditAccount = ({
                 </div>
                 <img
                     onClick={() => setEdit(!edit)}
-                    className="h-5 w-5 hover:w-7 hover:h-7 duration-500 ease-in-out"
-                    src={adminAssets.icon.editIcon}
+                    className="h-5 w-5 duration-500 ease-in-out hover:h-7 hover:w-7"
+                    src={assets.admin.icon.editIcon}
                     alt=""
                 />
             </div>

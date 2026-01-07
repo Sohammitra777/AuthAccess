@@ -1,4 +1,4 @@
-import dashboardAssets from "../../../feature/dashboard/assets/assets";
+import assets from "../../../assets/assets";
 import FooterLinks from "./FooterLinks";
 
 function Footer() {
@@ -11,19 +11,19 @@ function Footer() {
                 <FooterLinks
                     text="Portfolio"
                     link=""
-                    source={dashboardAssets.icons.portfolio}
+                    source={assets.icons.portfolioIcon}
                     alterText="portfolio image"
                 />
                 <FooterLinks
                     text="Resume"
                     link=""
-                    source={dashboardAssets.icons.resume}
+                    source={assets.icons.resumeIcon}
                     alterText="resume image"
                 />
                 <FooterLinks
                     text="Github"
                     link=""
-                    source={dashboardAssets.icons.github}
+                    source={assets.icons.githubIcon}
                     alterText="github image"
                 />
             </div>
