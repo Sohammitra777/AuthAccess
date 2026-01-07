@@ -15,7 +15,7 @@ function FooterLinks({
             href={link}
         >
             <img
-                className="h-5 w-5 sm:h-7 sm:w-7 md:h-8 md:w-8 xl:h-10 xl:w-10"
+                className="h-5 w-5 sm:h-7 sm:w-7 xl:h-10 xl:w-10"
                 src={source}
                 alt={alterText}
             />

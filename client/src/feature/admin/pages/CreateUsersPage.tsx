@@ -20,7 +20,7 @@ function CreateUserPage() {
                 AuthAccess User Creation
             </h1>
             <form
-                className="flex min-w-70 flex-col gap-4 rounded-2xl border border-[#b1ada1] p-4 text-center text-sm sm:min-w-lg sm:p-6 sm:text-xl"
+                className="flex min-w-70 flex-col gap-4 rounded-2xl border border-[#b1ada1] p-4 text-center text-sm sm:min-w-lg sm:p-4 sm:text-lg"
                 onSubmit={(e) => {
                     e.preventDefault();
                     const user = {

@@ -1,6 +1,6 @@
 function Welcome() {
     return (
-        <ul className="mr-2 ml-2 rounded-xl p-2 text-center text-sm/6 text-[#b1ada1] sm:mr-5 sm:ml-5 sm:p-6 sm:pr-10 sm:pl-10 md:text-lg/8 lg:text-xl/10">
+        <ul className="mr-2 ml-2 rounded-xl p-2 text-center text-sm/6 text-[#b1ada1] sm:mr-5 sm:ml-5 sm:p-6 sm:pr-10 sm:pl-10  lg:text-lg/8">
             <li className="mb-2">
                 Welcome to AuthAccess — a hands-on playground for authentication
                 and authorization.

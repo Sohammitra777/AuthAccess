@@ -8,7 +8,7 @@ type User = {
     role: string;
 };
 
-export const useAdminDeleteUser = () => {
+export const useAccountDelete = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -48,11 +48,18 @@ export const useAdminSeedData = () => {
     });
 };
 
-export const useAdminToUpdate = () => {
+export const useAccountUpdate = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ id, role }: { id: string; role: string }) =>
-            adminServices.updateUser(id, { role }),
+        mutationFn: ({
+            id,
+            email,
+            role,
+        }: {
+            id: string;
+            email?: string;
+            role?: string;
+        }) => adminServices.updateUser(id, { email, role }),
         onSuccess: () =>
             queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
     });

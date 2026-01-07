@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContextAuth } from "../../auth.hook";
 import { useMutation } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 
 function LoginPage() {
     const { login } = useContextAuth();
@@ -19,7 +20,7 @@ function LoginPage() {
             <h1 className="mb-4 text-3xl">AuthAccess Login</h1>
 
             <form
-                className="flex min-w-70 flex-col gap-4 rounded-2xl border border-[#b1ada1] p-4 text-center text-sm sm:min-w-lg sm:p-6 sm:text-xl"
+                className="flex min-w-70 flex-col gap-2 rounded-2xl border border-[#b1ada1] p-4 text-center text-sm sm:min-w-lg sm:text-lg"
                 onSubmit={(e) => {
                     e.preventDefault();
                     mutate();
@@ -42,12 +43,21 @@ function LoginPage() {
                 />
 
                 <button
-                    className="mb-0 cursor-pointer rounded-lg bg-[#E5E5E5] p-1 font-mono font-bold text-black duration-150 ease-in hover:bg-zinc-300 sm:m-4"
+                    className="mb-0 cursor-pointer rounded-lg bg-[#E5E5E5] p-1 font-mono font-bold tracking-widest text-black duration-150 ease-in hover:bg-zinc-300 sm:m-4"
                     type="submit"
                 >
                     {isPending ? "Logging in..." : "Login"}
                 </button>
-                {error && <p className="m-4 mb-0">Invalid Credentials</p>}
+                {error && (
+                    <motion.p
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        className="m-4 mb-0"
+                    >
+                        Invalid Credentials
+                    </motion.p>
+                )}
             </form>
 
             <p className="m-4 text-lg">

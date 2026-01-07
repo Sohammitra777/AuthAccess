@@ -1,12 +1,12 @@
-import { useAdminToUpdate } from "../admin.mutations";
+import { useAccountUpdate } from "../../admin.mutations";
 
 const UpdateRole = ({ id, role }: { id: string; role: string }) => {
     const nextRole = role === "user" ? "admin" : "user";
-    const { mutate, isPending } = useAdminToUpdate();
+    const { mutate, isPending } = useAccountUpdate();
 
     return (
-        <p
-            className="duration-300 hover:opacity-80"
+        <button
+            className="cursor-pointer rounded-lg bg-neutral-800  px-4 py-2 text-sm lg:text-md tracking-wide text-[#E5E5E5] hover:font-medium  hover:tracking-widest duration-400"
             onClick={() => !isPending && mutate({ id, role: nextRole })}
         >
             {isPending
@@ -16,7 +16,7 @@ const UpdateRole = ({ id, role }: { id: string; role: string }) => {
                 : role === "user"
                   ? "Upgrade to Admin"
                   : "Downgrade to User"}
-        </p>
+        </button>
     );
 };
 

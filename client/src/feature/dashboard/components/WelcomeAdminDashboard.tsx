@@ -5,7 +5,7 @@ function WelcomeAdminDashboard() {
                 Welcome to the Admin Dashboard.
             </h1>
 
-            <ul className="p-4 text-center text-sm/6 tracking-widest text-[#b1ada1] sm:text-xl/8 xl:text-xl/10">
+            <ul className="p-4 text-center text-sm/6 tracking-widest text-[#b1ada1] sm:text-lg/7 xl:text-xl/10">
                 <div className="mb-4">
                     <h1 className="text-lg font-bold sm:text-2xl/10 xl:text-3xl/12">
                         Access & Power

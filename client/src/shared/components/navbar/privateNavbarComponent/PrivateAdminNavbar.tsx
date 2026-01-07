@@ -11,14 +11,14 @@ const PrivateAdminNavbar = () => {
     const { mutate } = useDeleteMutation();
 
     return (
-        <div className="flex font-serif lg:text-2xl">
+        <div className="m-2 mb-0 flex font-serif lg:text-xl">
             <div className="m-2 flex w-full items-center justify-between rounded-lg bg-[#c15f3c] p-2 text-[#f4f3ee] sm:pr-4 sm:pl-4">
                 <Link to="/" className="tracking-wide">
                     AuthAccess
                 </Link>
 
                 <img
-                    className="h-4 w-4 cursor-pointer transition hover:opacity-80 active:scale-95 sm:h-6 sm:w-6"
+                    className="h-4 w-4 cursor-pointer transition hover:opacity-80 active:scale-95 sm:h-5 sm:w-5"
                     onClick={() => setAdminPanel(true)}
                     src={sharedAssets.icons.hamburger}
                     alt="Open admin panel"
@@ -35,7 +35,7 @@ const PrivateAdminNavbar = () => {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
                         onClick={(e) => e.stopPropagation()}
-                        className="animate-slide-in fixed top-18 right-3 bottom-3 flex min-w-40 cursor-default flex-col gap-3 rounded-3xl border border-white/25 bg-[#c15f3c] p-4 shadow-2xl shadow-black/40 sm:min-w-50"
+                        className="fixed top-18 right-3 bottom-3 flex min-w-40 cursor-default flex-col gap-3 rounded-2xl border border-white/25 bg-[#c15f3c] p-4 shadow-2xl shadow-black/40 sm:min-w-50 text-lg"
                     >
                         <h3 className="mb-1 font-semibold tracking-wide">
                             Admin Menu
