@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Inconvenience = () => {
     const text =
-        "Thank you for your patience — the backend may take a moment to wake up on Render. The server starts once, but data is re-seeded for the sample logins on each use, which can make those loads slightly slower. To test real login performance, please sign in through the Login/Signup page. 🙏";
+        "The application re-seeds data for the sample logins on each use, which can make those loads slightly slower. To test real-login performance, please sign in through the Login/Signup page. 🙏";
 
     const [displayed, setDisplayed] = useState("");
 
@@ -15,7 +15,7 @@ const Inconvenience = () => {
             index++;
 
             if (index === text.length) clearInterval(interval);
-        }, 50);
+        }, 30);
 
         return () => clearInterval(interval);
     }, []);

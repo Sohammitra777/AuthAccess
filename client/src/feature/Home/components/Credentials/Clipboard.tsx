@@ -21,9 +21,7 @@ function Clipboard({
                 className="mt-2 cursor-pointer rounded-lg bg-[#c15f3c] p-1 pr-2 pl-2 text-[#f4f3ee] duration-150 ease-in hover:bg-black"
                 onClick={() => {
                     !isPending && mutate({ email, password });
-                    setTimeout(() => {
-                        setRealTime(true);
-                    }, 5 * 1000);
+                    setRealTime(true);
                 }}
             >
                 {isPending ? <p>{role} Starting Up</p> : <p>Login {role}</p>}
