@@ -13,6 +13,7 @@ import CreateUserPage from "../feature/admin/pages/CreateUsersPage";
 import CreateAdminPage from "../feature/admin/pages/CreateAdminPage";
 import PrivateNavbar from "../shared/components/navbar/PrivateNavbar";
 import App from "../App";
+import NotFoundPage from "../shared/page/NotFoundPage";
 
 export const authRoutes = {
     PublicRoute,
@@ -30,6 +31,7 @@ const routes = {
     PrivateNavbar,
     CreateUserPage,
     CreateAdminPage,
+    NotFoundPage,
 };
 
 export default routes;
