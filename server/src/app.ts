@@ -1,14 +1,14 @@
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import routes from "./modules/routes.exports";
-import express, { Request, Response } from "express";
-import env from "./core/config/env";
+import express from "express";
 
 const app = express();
 
+app.set("trust proxy", 1);
 app.use(
     cors({
-        origin: ["https://auth-access.vercel.app/", "http://localhost:5173"],
+        origin: ["https://auth-access.vercel.app", "http://localhost:5173"],
         credentials: true,
     })
 );
