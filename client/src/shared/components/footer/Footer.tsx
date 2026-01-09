@@ -10,19 +10,19 @@ function Footer() {
             <div className="m-2 mb-0 flex w-full justify-evenly text-sm sm:mt-2 sm:mb-4">
                 <FooterLinks
                     text="Portfolio"
-                    link=""
+                    link="https://portfolio-beryl-ten-75.vercel.app/"
                     source={assets.icons.portfolioIcon}
                     alterText="portfolio image"
                 />
                 <FooterLinks
                     text="Resume"
-                    link=""
+                    link="https://www.canva.com/design/DAGzZRmaXrw/HdJhQtHt6-xrf-42vAHROQ/view?utm_content=DAGzZRmaXrw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hdcb340e5fe"
                     source={assets.icons.resumeIcon}
                     alterText="resume image"
                 />
                 <FooterLinks
                     text="Github"
-                    link=""
+                    link="https://github.com/Sohammitra777"
                     source={assets.icons.githubIcon}
                     alterText="github image"
                 />

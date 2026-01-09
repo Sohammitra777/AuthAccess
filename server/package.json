@@ -9,7 +9,7 @@
         "start": "node dist/server.js",
         "dev": "nodemon",
         "generate": "drizzle-kit generate",
-        "push": "drizzle-kit push"
+        "migrate": "drizzle-kit migrate"
     },
     "keywords": [],
     "author": "",

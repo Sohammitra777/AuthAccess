@@ -8,7 +8,7 @@ const PrivateUserNavbar = () => {
 
     return (
         <div className="mt-2 flex">
-            <div className="m-2 flex w-full justify-between rounded-lg bg-[#c15f3c] p-4 font-serif text-[#f4f3ee] lg:text-lg">
+            <div className="m-2 flex w-full justify-between rounded-lg bg-[#c15f3c] p-2 font-serif text-[#f4f3ee] lg:text-lg">
                 <Link className="text-2xl" to="/">
                     AuthAccess
                 </Link>

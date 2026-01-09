@@ -28,7 +28,7 @@ const UpdateEmail = ({ id }: { id: string }) => {
                     {isPending ? "Updating":"Update"}
                 </button>
             </form>
-            <p>{error && "Invalid Email Fromat"}</p>
+            <p className="mt-1 text-center">{error && "Invalid Email Fromat"}</p>
         </div>
     );
 };

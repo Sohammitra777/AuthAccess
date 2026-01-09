@@ -64,6 +64,20 @@
       "when": 1767618988231,
       "tag": "0008_nappy_junta",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1767882081523,
+      "tag": "0009_brief_wallflower",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1767882308731,
+      "tag": "0010_swift_catseye",
+      "breakpoints": true
     }
   ]
 }
