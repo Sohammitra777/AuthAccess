@@ -28,6 +28,7 @@ const utils = {
             sameSite: env.NODE_ENV === "production" ? "none" : "lax",
             path: "/",
             maxAge: Number(age),
+            partitioned: true,
         });
     },
 
@@ -40,6 +41,7 @@ const utils = {
             secure: env.NODE_ENV === "production",
             sameSite: env.NODE_ENV === "production" ? "none" : "lax",
             path: "/",
+            partitioned: true,
         });
     },
 };
