@@ -25,7 +25,7 @@ const utils = {
         res.cookie(tokenName, token, {
             httpOnly: true,
             secure: env.NODE_ENV === "production",
-            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            sameSite: "none",
             path: "/",
             maxAge: Number(age),
             partitioned: true,
@@ -39,7 +39,7 @@ const utils = {
         res.clearCookie(tokenName, {
             httpOnly: true,
             secure: env.NODE_ENV === "production",
-            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            sameSite: "none",
             path: "/",
             partitioned: true,
         });
