@@ -6,6 +6,7 @@ export const authApi = axios.create(axiosConfig.extendedClientConfig("/auth"));
 export const baseApi = axios.create(axiosConfig.extendedClientConfig("/auth"));
 
 let refreshPromise: Promise<void> | null = null;
+let refreshFailed = false;
 
 authApi.interceptors.response.use(
     (response) => {
@@ -27,7 +28,8 @@ authApi.interceptors.response.use(
         if (
             error.response.status !== 401 ||
             error.config.routeUsed ||
-            isAuthRoute
+            isAuthRoute ||
+            refreshFailed
         ) {
             return Promise.reject(error);
         }
@@ -36,8 +38,12 @@ authApi.interceptors.response.use(
 
         if (!refreshPromise) {
             refreshPromise = baseApi
-                .post("/refresh")
+                .post("/refresh", {}, { withCredentials: true })
                 .then(() => {})
+                .catch(() => {
+                    refreshFailed = true;
+                    throw new Error("refresh failed");
+                })
                 .finally(() => {
                     refreshPromise = null;
                 });

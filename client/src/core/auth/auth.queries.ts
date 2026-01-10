@@ -8,6 +8,5 @@ export const useMeQuery = () => {
             const data = await authServices.getMe();
             return data.user;
         },
-        initialData: null,
     });
 };
