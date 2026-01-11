@@ -5,10 +5,10 @@ const LoadingPage = () => {
     const [stage, setStage] = useState(0);
 
     useEffect(() => {
-        const t1 = setTimeout(() => setStage(1), 7000);
-        const t2 = setTimeout(() => setStage(2), 20000);
-        const t3 = setTimeout(() => setStage(3), 30000);
-        const t4 = setTimeout(() => setStage(4), 50000);
+        const t1 = setTimeout(() => setStage(1), 10000);
+        const t2 = setTimeout(() => setStage(2), 25000);
+        const t3 = setTimeout(() => setStage(3), 50000);
+        const t4 = setTimeout(() => setStage(4), 70000);
 
         return () => [t1, t2, t3, t4].forEach(clearTimeout);
     }, []);

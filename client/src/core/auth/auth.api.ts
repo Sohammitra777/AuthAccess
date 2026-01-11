@@ -38,7 +38,7 @@ authApi.interceptors.response.use(
 
         if (!refreshPromise) {
             refreshPromise = baseApi
-                .post("/refresh", {}, { withCredentials: true })
+                .post("/refresh")
                 .then(() => {})
                 .catch(() => {
                     refreshFailed = true;
