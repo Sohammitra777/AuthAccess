@@ -53,9 +53,13 @@ function CreateAdminPage() {
                     {isPending ? "Getting Registered" : "Register"}
                 </button>
                 {isSuccess && (
-                    <p className="m-2 p-2">Admin registered successfully</p>
+                    <p className="-m-2">Admin registered successfully</p>
                 )}
-                {isError && <p className="m-2 p-2">Admin Already Registered</p>}
+                {isError && (
+                    <p className="-m-2">
+                        Invalid Admin Credential OR Admin Already Registered
+                    </p>
+                )}
             </form>
             <p className="m-2 p-2">
                 Want to Create User?,

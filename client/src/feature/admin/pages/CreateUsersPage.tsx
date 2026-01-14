@@ -37,6 +37,7 @@ function CreateUserPage() {
                     placeholder="Enter your Email"
                     value={userEmail}
                     onChange={(event) => setUserEmail(event.target.value)}
+                    required
                 />
 
                 <input
@@ -45,6 +46,7 @@ function CreateUserPage() {
                     placeholder="Enter your Password"
                     value={userPassword}
                     onChange={(event) => setUserPassword(event.target.value)}
+                    required
                 />
 
                 <button
@@ -54,9 +56,13 @@ function CreateUserPage() {
                     {isPending ? "Getting Registered" : "Register"}
                 </button>
                 {isSuccess && (
-                    <p className="m-2 p-2">User registered successfully</p>
+                    <p className="-m-2">User registered successfully</p>
                 )}
-                {isError && <p className="m-2 p-2">User Already Registered</p>}
+                {isError && (
+                    <p className="-m-2">
+                        Invalid User Credential OR User Already Registered
+                    </p>
+                )}
             </form>
             <p className="m-2 p-2">
                 Want to Create Admin?,

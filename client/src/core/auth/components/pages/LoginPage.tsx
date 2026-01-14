@@ -53,7 +53,7 @@ function LoginPage() {
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeInOut" }}
-                        className="m-4 mb-0"
+                        className="-m-2"
                     >
                         Invalid Credentials
                     </motion.p>
