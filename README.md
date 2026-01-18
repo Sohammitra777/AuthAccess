@@ -2,7 +2,7 @@
 
 ### 🌐 Live Application: [AuthAccess Link](https://auth-access.vercel.app/)
 
-## 🔹 Quick Summary (Reviewer Overview)
+## 🔹 Quick Summary
 
 -   Full-stack auth system — **TypeScript monorepo (React + Express + Drizzle + Postgres)**
 -   **Access + Refresh tokens via secure HTTP-only cookies** (rotation enabled)
