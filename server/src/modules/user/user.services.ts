@@ -1,17 +1,18 @@
+import adminRepo from "../admin/admin.repo";
 import userData from "./data/userData";
 import userRepo from "./user.repo";
 import userUtils from "./user.util";
 
 const userServices = {
     seedData: async () => {
-        for (const user of userData) {
-            const userExist = await userRepo.checkUserByEmail(user.email);
+        await userRepo.deleteAllUsers();
 
-            if (userExist.length > 0) continue;
+        for (const user of userData) {
             const hash = await userUtils.hashPassword(user.password);
             await userRepo.createUser(user.email, hash, user.role);
         }
     },
+
     deleteuser: async (userId: string) => {
         const userExist = await userRepo.checkUserbyId(userId);
 

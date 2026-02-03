@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Inconvenience = () => {
     const text =
-        "The application re-seeds data for the sample logins on each use, which can make those loads slightly slower. To test real-login performance, please sign in through the Login/Signup page. 🙏";
+        "The application resets all database data on every sample login by deleting and restoring the original state. To preserve your role or any data you’ve changed and to ensure normal performance, please use the Login/Signup page.";
 
     const [displayed, setDisplayed] = useState("");
 

@@ -18,7 +18,7 @@ function Clipboard({
             <ClipboardDetail role={role} copy={email} />
             <ClipboardDetail role={role} copy={password} />
             <button
-                className="mt-2 cursor-pointer rounded-md md:rounded-lg bg-[#c15f3c] xl:px-2 text-[#f4f3ee] duration-150 ease-in hover:bg-black"
+                className="mt-2 cursor-pointer rounded-md md:rounded-lg bg-[#c15f3c] xl:px-2 text-[#f4f3ee] duration-300 ease-in hover:bg-black"
                 onClick={() => {
                     !isPending && mutate({ email, password });
                     setRealTime(true);

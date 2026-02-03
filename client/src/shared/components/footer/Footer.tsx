@@ -16,7 +16,7 @@ function Footer() {
                 />
                 <FooterLinks
                     text="Resume"
-                    link="https://www.canva.com/design/DAGzZRmaXrw/HdJhQtHt6-xrf-42vAHROQ/view?utm_content=DAGzZRmaXrw&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hdcb340e5fe"
+                    link="https://docs.google.com/document/d/1V3CPqZE28eBw0y3yUF3UJZeiDliNmmtAXH4w2YzdVwU/edit?usp=sharing"
                     source={assets.icons.resumeIcon}
                     alterText="resume image"
                 />

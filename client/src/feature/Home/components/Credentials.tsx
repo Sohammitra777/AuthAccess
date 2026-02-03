@@ -17,15 +17,15 @@ function Credentials() {
             </p>
             <div className="mt-2 flex flex-col justify-evenly gap-4 md:flex-row">
                 <Clipboard
-                    email={credentials.userEamil}
-                    password={credentials.userPassword}
-                    role="User"
-                    setRealTime={setRealTime}
-                />
-                <Clipboard
                     email={credentials.adminEmail}
                     password={credentials.adminPassword}
                     role="Admin"
+                    setRealTime={setRealTime}
+                />
+                <Clipboard
+                    email={credentials.userEamil}
+                    password={credentials.userPassword}
+                    role="User"
                     setRealTime={setRealTime}
                 />
             </div>

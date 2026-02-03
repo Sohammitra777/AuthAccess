@@ -10,9 +10,11 @@ const userRepo = {
             role,
         });
     },
+
     checkUserByEmail: async (email: string) => {
         return await db.select().from(users).where(eq(users.email, email));
     },
+
     checkUserbyId: async (userId: string) => {
         return await db.select().from(users).where(eq(users.id, userId));
     },
@@ -30,6 +32,10 @@ const userRepo = {
 
     removeRefreshToken: async (userId: string) => {
         await db.delete(refreshToken).where(eq(refreshToken.userId, userId));
+    },
+
+    deleteAllUsers: async () => {
+        await db.delete(users);
     },
 };
 
