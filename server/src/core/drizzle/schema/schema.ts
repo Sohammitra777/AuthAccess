@@ -1,4 +1,3 @@
-
 import { unique, pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -19,5 +18,6 @@ export const refreshToken = pgTable(
         createdAt: timestamp("created_at").defaultNow().notNull(),
         expiresAt: timestamp("expires_at").notNull(),
     },
-    (table) => ({ oneTokenPerUser: unique().on(table.userId) })
+
+    (table) => [unique().on(table.userId)],
 );

@@ -24,6 +24,7 @@ if (!parsed.success) {
     console.error("Invalid enviornment variable", parsed.error.issues);
     process.exit(1);
 }
+
 if (parsed.data.NODE_ENV === "development") {
     console.log("env active, continue...");
     console.log(parsed.data);
